@@ -32,6 +32,12 @@ const Quote = () => {
     ));
   };
 
+  const toggleElevatorCollapse = (id: number) => {
+    setElevators(elevators.map(elevator =>
+      elevator.id === id ? { ...elevator, isCollapsed: !elevator.isCollapsed } : elevator
+    ));
+  };
+
   useEffect(() => {
     setQuotationDate(new Date().toLocaleDateString('en-CA'));
   }, []);
@@ -112,7 +118,7 @@ const Quote = () => {
             </div>
             
             {elevators.map((elevator, index) => (
-              <ElevatorForm key={elevator.id} elevator={elevator} onChange={handleElevatorChange} onRemove={removeElevator} />
+              <ElevatorForm key={elevator.id} elevator={elevator} onChange={handleElevatorChange} onRemove={removeElevator} onToggleCollapse={toggleElevatorCollapse} />
             ))}
             <button onClick={addElevator} className="mt-4 w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600">Add Elevator</button>
 

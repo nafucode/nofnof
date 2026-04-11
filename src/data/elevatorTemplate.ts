@@ -1,5 +1,6 @@
 export const elevatorTemplate = {
   id: Date.now(),
+  isCollapsed: false,
   description: 'Passenger Lift',
   type: 'TKJW 450/0.63-VF',
   capacity: 450,
