@@ -118,6 +118,7 @@ const Quote = () => {
   `;
 
   const handlePrint = useReactToPrint({
+    // @ts-ignore
     content: () => componentRef.current,
     documentTitle: `${companyName} - ${quotationNo}`,
     pageStyle: pageStyle,
