@@ -12,7 +12,8 @@ const Quote = () => {
   const [quotationType, setQuotationType] = useState('FOB');
   const [quotationDate, setQuotationDate] = useState('');
 
-  const [elevators, setElevators] = useState([elevatorTemplate]);
+  const nextId = useRef(2);
+  const [elevators, setElevators] = useState([{...elevatorTemplate, id: 1}]);
 
   const [freightDestination, setFreightDestination] = useState('YIWU YY CARGO WAREHOUSE');
   const [freightCost, setFreightCost] = useState(600);
@@ -27,7 +28,9 @@ const Quote = () => {
   }, []);
 
   const addElevator = () => {
-    setElevators([...elevators, { ...elevatorTemplate, id: Date.now() }]);
+    const newId = nextId.current;
+    setElevators([...elevators, { ...elevatorTemplate, id: newId }]);
+    nextId.current++;
   };
 
   const removeElevator = (id: number) => {
@@ -51,7 +54,7 @@ const Quote = () => {
   }, []);
 
   useEffect(() => {
-    if (targetCurrency) {
+    if (targetCurrency && targetCurrency !== 'USD' && targetCurrency !== '-') {
       fetch(`https://open.er-api.com/v6/latest/USD`)
         .then(response => response.json())
         .then(data => {
@@ -60,6 +63,8 @@ const Quote = () => {
           }
         })
         .catch(error => console.error("Error fetching exchange rate:", error));
+    } else {
+      setExchangeRate(1);
     }
   }, [targetCurrency]);
 
@@ -125,11 +130,6 @@ const Quote = () => {
               </div>
             </div>
             
-            {elevators.map((elevator, index) => (
-              <ElevatorForm key={elevator.id} elevator={elevator} onChange={handleElevatorChange} onRemove={removeElevator} onToggleCollapse={toggleElevatorCollapse} />
-            ))}
-            <button onClick={addElevator} className="mt-4 w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600">Add Elevator</button>
-
             <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">Freight & Currency</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
@@ -140,7 +140,7 @@ const Quote = () => {
                   onChange={(e) => setFreightDestination(e.target.value)}
                 />
               </div>
-              <div>
+              <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700">Freight Cost</label>
                 <input
                   type="number"
@@ -156,6 +156,7 @@ const Quote = () => {
                   value={targetCurrency}
                   onChange={(e) => setTargetCurrency(e.target.value)}
                 >
+                  <option value="-">-</option>
                   <option>NGN</option>
                   <option>CNY</option>
                   <option>USD</option>
@@ -172,6 +173,11 @@ const Quote = () => {
                 />
               </div>
             </div>
+
+            {elevators.map((elevator, index) => (
+              <ElevatorForm key={elevator.id} elevator={elevator} onChange={handleElevatorChange} onRemove={removeElevator} onToggleCollapse={toggleElevatorCollapse} />
+            ))}
+            <button onClick={addElevator} className="mt-4 w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600">Add Elevator</button>
           </div>
 
           {/* Right Side - Preview */}
@@ -224,10 +230,12 @@ const Quote = () => {
                         <td colSpan={7} className="p-2 text-right">Total amount :</td>
                         <td className="p-2 text-right">{grandTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                       </tr>
-                      <tr className="font-bold">
-                         <td colSpan={7} className="p-2 text-right">=</td>
-                         <td className="p-2 text-right">{convertedTotal.toLocaleString('en-US', { style: 'currency', currency: targetCurrency })}</td>
-                      </tr>
+                      {targetCurrency !== 'USD' && targetCurrency !== '-' && (
+                        <tr className="font-bold">
+                          <td colSpan={7} className="p-2 text-right">=</td>
+                          <td className="p-2 text-right">{convertedTotal.toLocaleString('en-US', { style: 'currency', currency: targetCurrency })}</td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -241,7 +249,7 @@ const Quote = () => {
                           key={e.id} 
                           onClick={() => setSelectedElevatorId(e.id)} 
                           className={`px-2 py-1 text-xs rounded-md ${selectedElevatorId === e.id ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-                          Elevator #{e.id}
+                          Elevator #L{e.id}
                         </button>
                       ))}
                     </div>

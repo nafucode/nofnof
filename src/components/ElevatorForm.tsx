@@ -15,9 +15,9 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
   };
 
   return (
-    <div className="p-4 mb-4 border rounded-lg shadow-md bg-gray-50">
+    <div className="p-4 mt-4 mb-4 border rounded-lg shadow-md bg-gray-50">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Elevator #{elevator.id}</h3>
+        <h3 className="text-lg font-semibold">Elevator #L{elevator.id}</h3>
         <div>
           <button onClick={() => onToggleCollapse(elevator.id)} className="px-3 py-1 text-sm text-white bg-gray-400 rounded-md hover:bg-gray-500 mr-2">
             {elevator.isCollapsed ? 'Expand' : 'Collapse'}
@@ -45,12 +45,24 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
             <input type="number" step="0.01" name="speed" value={elevator.speed} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Unit Price</label>
-            <input type="number" name="unitPrice" value={elevator.unitPrice} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div>
             <label className="block text-sm font-medium text-gray-700">Qty</label>
             <input type="number" name="qty" value={elevator.qty} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          
+          {/* Price Info */}
+          <div className="sm:col-span-2">
+            <div className="grid grid-cols-2 gap-4 p-4 mt-4 border rounded-lg bg-gray-100">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Unit Price</label>
+                <input type="number" name="unitPrice" value={elevator.unitPrice} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Total Price</label>
+                <p className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm bg-gray-200">
+                  {(elevator.unitPrice * elevator.qty).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Basic Specification */}
