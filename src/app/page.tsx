@@ -15,7 +15,7 @@ const Quote = () => {
   const nextId = useRef(2);
   const [elevators, setElevators] = useState([{...elevatorTemplate, id: 1}]);
 
-  const [freightDestination, setFreightDestination] = useState('YIWU YY CARGO WAREHOUSE');
+  const [freightDestination, setFreightDestination] = useState('e.g., Port of Shanghai');
   const [freightCost, setFreightCost] = useState(600);
   const [exchangeRate, setExchangeRate] = useState(1430);
   const [targetCurrency, setTargetCurrency] = useState('NGN');
