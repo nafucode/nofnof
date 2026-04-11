@@ -18,6 +18,13 @@ const Quote = () => {
   const [freightCost, setFreightCost] = useState(600);
   const [exchangeRate, setExchangeRate] = useState(1430);
   const [targetCurrency, setTargetCurrency] = useState('NGN');
+  const [selectedElevatorId, setSelectedElevatorId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (elevators.length > 0) {
+      setSelectedElevatorId(elevators[0].id);
+    }
+  }, []);
 
   const addElevator = () => {
     setElevators([...elevators, { ...elevatorTemplate, id: Date.now() }]);
@@ -226,8 +233,68 @@ const Quote = () => {
                 </div>
 
                 <div className="mt-4 pt-4 border-t">
-                  <h3 className="text-lg font-semibold mb-2">I. Basic specification</h3>
-                  {/* Can be enhanced to show details for a selected elevator */}
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold">Specifications</h3>
+                    <div className="flex space-x-1">
+                      {elevators.map(e => (
+                        <button 
+                          key={e.id} 
+                          onClick={() => setSelectedElevatorId(e.id)} 
+                          className={`px-2 py-1 text-xs rounded-md ${selectedElevatorId === e.id ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+                          Elevator #{e.id}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {(() => {
+                    const selectedElevator = elevators.find(e => e.id === selectedElevatorId);
+                    if (!selectedElevator) return null;
+
+                    const renderSpec = (label: string, value: any) => (
+                      <div key={label} className="flex justify-between py-1 px-2 border-b last:border-b-0 hover:bg-gray-50">
+                        <span className="text-sm text-gray-600">{label}</span>
+                        <span className="text-sm font-medium text-right">{String(value)}</span>
+                      </div>
+                    );
+
+                    return (
+                      <div className="text-sm">
+                        <h4 className="text-md font-semibold mt-2 border-b bg-gray-100 px-2 py-1">I. Basic specification</h4>
+                        {renderSpec('Description', selectedElevator.description)}
+                        {renderSpec('Type', selectedElevator.type)}
+                        {renderSpec('Capacity (KG)', selectedElevator.capacity)}
+                        {renderSpec('Speed (M/S)', selectedElevator.speed)}
+                        {renderSpec('Floors/Stops', selectedElevator.floorsStops)}
+                        {renderSpec('Control System', selectedElevator.controlSystem)}
+                        {renderSpec('Drive System', selectedElevator.driveSystem)}
+                        
+                        <h4 className="text-md font-semibold mt-4 border-b bg-gray-100 px-2 py-1">II. Hoistway specification</h4>
+                        {renderSpec('Headroom (mm)', selectedElevator.headroom)}
+                        {renderSpec('Pit Depth (mm)', selectedElevator.pitDepth)}
+                        {renderSpec('Shaft Size (W x D mm)', selectedElevator.shaftSize)}
+                        {renderSpec('Machine Room Size (W x D x H mm)', selectedElevator.machineRoomSize)}
+
+                        <h4 className="text-md font-semibold mt-4 border-b bg-gray-100 px-2 py-1">III. Door specification</h4>
+                        {renderSpec('Door Opening Type', selectedElevator.doorOpeningType)}
+                        {renderSpec('Door Opening Size (W x H mm)', selectedElevator.doorOpeningSize)}
+                        {renderSpec('Door Header Type', selectedElevator.doorHeaderType)}
+                        {renderSpec('1st Floor Door Decoration', selectedElevator.firstFloorDoor)}
+                        {renderSpec('Other Floors Door Decoration', selectedElevator.otherFloorsDoor)}
+
+                        <h4 className="text-md font-semibold mt-4 border-b bg-gray-100 px-2 py-1">IV. Cabin Decoration</h4>
+                        {renderSpec('Car Wall', selectedElevator.carWall)}
+                        {renderSpec('Car Ceiling', selectedElevator.carCeiling)}
+                        {renderSpec('Car Floor', selectedElevator.carFloor)}
+                        {renderSpec('Car Handrail', selectedElevator.carHandrail)}
+
+                        <h4 className="text-md font-semibold mt-4 border-b bg-gray-100 px-2 py-1">V. Function</h4>
+                        {renderSpec('COP/LOP', selectedElevator.copLop)}
+                        {renderSpec('ARD (Automatic Rescue Device)', selectedElevator.ard)}
+                        {renderSpec('Intercom', selectedElevator.intercom)}
+                        {renderSpec('Fire Emergency Return', selectedElevator.fireEmergencyReturn)}
+                      </div>
+                    );
+                  })()}
                 </div>
                 
                 <div className="mt-4 pt-4 border-t text-right text-sm text-gray-500">

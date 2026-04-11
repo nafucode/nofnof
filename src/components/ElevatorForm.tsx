@@ -27,6 +27,7 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
       </div>
       {!elevator.isCollapsed && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Basic Info */}
           <div>
             <label className="block text-sm font-medium text-gray-700">Description</label>
             <input name="description" value={elevator.description} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
@@ -51,12 +52,135 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
             <label className="block text-sm font-medium text-gray-700">Qty</label>
             <input type="number" name="qty" value={elevator.qty} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
-          {/* All other specification fields */}
+
+          {/* Basic Specification */}
+          <div className="sm:col-span-2"><h4 className="text-md font-semibold mt-4 border-b">Basic Specification</h4></div>
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium text-gray-700">Traction motor & Drive</label>
             <input name="tractionMotorAndDrive" value={elevator.tractionMotorAndDrive} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
-          {/* ... and so on for all fields in elevatorTemplate ... */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Car Group</label>
+            <input name="carGroup" value={elevator.carGroup} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Floors/Stops</label>
+            <input name="floorsStops" value={elevator.floorsStops} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Serving floors</label>
+            <input name="servingFloors" value={elevator.servingFloors} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Car Entrances</label>
+            <input name="carEntrances" value={elevator.carEntrances} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Power voltage</label>
+            <input name="powerVoltage" value={elevator.powerVoltage} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Lighting voltage</label>
+            <input name="lightingVoltage" value={elevator.lightingVoltage} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Frequency</label>
+            <input name="frequency" value={elevator.frequency} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Machine room location</label>
+            <input name="machineRoomLocation" value={elevator.machineRoomLocation} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Auto Rescue Device</label>
+            <input name="autoRescueDevice" value={elevator.autoRescueDevice} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Roping system</label>
+            <input name="ropingSystem" value={elevator.ropingSystem} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Inverter & control board</label>
+            <input name="inverterAndControlBoard" value={elevator.inverterAndControlBoard} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Controller box</label>
+            <input name="controllerBox" value={elevator.controllerBox} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+
+          {/* Shaft Specification */}
+          <div className="sm:col-span-2"><h4 className="text-md font-semibold mt-4 border-b">Shaft Specification</h4></div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Shaft construction</label>
+            <input name="shaftConstruction" value={elevator.shaftConstruction} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Machine Room Height</label>
+            <input name="machineRoomHeight" value={elevator.machineRoomHeight} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Shaft Width (mm)</label>
+            <input type="number" name="shaftWidth" value={elevator.shaftWidth} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Shaft Depth (mm)</label>
+            <input type="number" name="shaftDepth" value={elevator.shaftDepth} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Travel (mm)</label>
+            <input type="number" name="travel" value={elevator.travel} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Pit depth (mm)</label>
+            <input type="number" name="pitDepth" value={elevator.pitDepth} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Overhead (mm)</label>
+            <input type="number" name="overhead" value={elevator.overhead} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+
+          {/* Car Specification */}
+          <div className="sm:col-span-2"><h4 className="text-md font-semibold mt-4 border-b">Car Specification</h4></div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">COP Plate</label>
+            <input name="copPlate" value={elevator.copPlate} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Car Width (mm)</label>
+            <input type="number" name="carWidth" value={elevator.carWidth} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Car Depth (mm)</label>
+            <input type="number" name="carDepth" value={elevator.carDepth} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Car Height (mm)</label>
+            <input type="number" name="carHeight" value={elevator.carHeight} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Car Ceiling</label>
+            <input name="carCeiling" value={elevator.carCeiling} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Car Floor</label>
+            <input name="carFloor" value={elevator.carFloor} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Handrail</label>
+            <input name="handrail" value={elevator.handrail} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Left Car Wall</label>
+            <input name="leftCarWall" value={elevator.leftCarWall} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Right Car Wall</label>
+            <input name="rightCarWall" value={elevator.rightCarWall} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Rear Car Wall</label>
+            <input name="rearCarWall" value={elevator.rearCarWall} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
         </div>
       )}
     </div>
