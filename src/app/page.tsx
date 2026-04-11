@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
@@ -6,21 +7,57 @@ import ElevatorForm from '@/components/ElevatorForm';
 import { elevatorTemplate } from '@/data/elevatorTemplate';
 
 const Quote = () => {
-  const [companyName, setCompanyName] = useState('Your Company');
+  const [companyName, setCompanyName] = useState('Your Company Name');
   const [quotationNo, setQuotationNo] = useState('Q-2024001');
   const [projectName, setProjectName] = useState('Sample Project');
   const [quotationType, setQuotationType] = useState('FOB');
   const [quotationDate, setQuotationDate] = useState('');
-
-  const nextId = useRef(2);
   const [elevators, setElevators] = useState([{...elevatorTemplate, id: 1}]);
-
   const [freightDestination, setFreightDestination] = useState('e.g., Port of Shanghai');
   const [freightCost, setFreightCost] = useState(600);
   const [exchangeRate, setExchangeRate] = useState(1430);
   const [targetCurrency, setTargetCurrency] = useState('NGN');
   const [selectedElevatorId, setSelectedElevatorId] = useState<number | null>(null);
   const [focusedSection, setFocusedSection] = useState<string>('');
+
+  const componentRef = useRef(null);
+  const nextId = useRef(2);
+
+  const pageStyle = `
+    @media print {
+      @page {
+        size: auto;
+        margin: 20mm;
+      }
+      .page-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 10px;
+        color: #666;
+      }
+      .page-number:after {
+        counter-increment: page;
+        content: "Page " counter(page);
+      }
+      body {
+        counter-reset: page;
+      }
+      .break-inside-avoid {
+        break-inside: avoid;
+      }
+    }
+  `;
+
+  const handlePrint = useReactToPrint({
+    // @ts-ignore
+    content: () => componentRef.current,
+    documentTitle: `${companyName} - ${quotationNo}`,
+    pageStyle: pageStyle,
+    onAfterPrint: () => console.log('printed'),
+  });
 
   useEffect(() => {
     if (focusedSection) {
@@ -86,44 +123,6 @@ const Quote = () => {
   const convertedTotal = useMemo(() => {
     return grandTotal * exchangeRate;
   }, [grandTotal, exchangeRate]);
-
-  const componentRef = useRef(null);
-
-  const pageStyle = `
-    @media print {
-      @page {
-        size: auto;
-        margin: 20mm;
-      }
-      .page-footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-size: 10px;
-        color: #666;
-      }
-      .page-number:after {
-        counter-increment: page;
-        content: "Page " counter(page);
-      }
-      body {
-        counter-reset: page;
-      }
-      .break-inside-avoid {
-        break-inside: avoid;
-      }
-    }
-  `;
-
-  const handlePrint = useReactToPrint({
-    // @ts-ignore
-    content: () => componentRef.current,
-    documentTitle: `${companyName} - ${quotationNo}`,
-    pageStyle: pageStyle,
-    onAfterPrint: () => console.log('printed'),
-  });
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -355,12 +354,12 @@ const Quote = () => {
                     );
                   })()}
                 </div>
-                
+
                 <div className="mt-4 pt-4 border-t text-right text-sm text-gray-500">
                   <p>Quotation Date: {quotationDate}</p>
                 </div>
 
-                <div className="page-footer hidden print:block">
+                <div className="page-footer hidden print:block break-inside-avoid">
                   <p>Suzhou Xinfuji Electromechanical Co., Ltd.</p>
                   <p>ADD:Dade Industrial Zone, Taoyuan Town, Wujiang District, Suzhou, Jiangsu, China</p>
                   <p>E-mail: info@xinfuji.com</p>
