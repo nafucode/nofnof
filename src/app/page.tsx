@@ -1,8 +1,8 @@
-"use client";
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
+import Header from '@/components/Header';
 
-import { useState, useMemo, useEffect } from 'react';
-
-export default function Home() {
+const Quote = () => {
   const [companyName, setCompanyName] = useState('Your Company');
   const [quotationNo, setQuotationNo] = useState('Q-2024001');
   const [projectName, setProjectName] = useState('Sample Project');
@@ -16,6 +16,7 @@ export default function Home() {
   const [quotationType, setQuotationType] = useState('FOB');
   const [exchangeRate, setExchangeRate] = useState(1430);
   const [targetCurrency, setTargetCurrency] = useState('NGN');
+  const [quotationDate, setQuotationDate] = useState('');
 
   // Basic Specification
   const [type, setType] = useState('TKJW 450/0.63-VF');
@@ -57,6 +58,10 @@ export default function Home() {
   const [rearCarWall, setRearCarWall] = useState('Hairline Stainless steel 1.2mm');
 
   useEffect(() => {
+    setQuotationDate(new Date().toLocaleDateString('en-CA'));
+  }, []);
+
+  useEffect(() => {
     if (targetCurrency) {
       fetch(`https://open.er-api.com/v6/latest/USD`)
         .then(response => response.json())
@@ -81,11 +86,18 @@ export default function Home() {
     return grandTotal * exchangeRate;
   }, [grandTotal, exchangeRate]);
 
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: `${companyName} - ${quotationNo}`,
+    removeAfterPrint: true,
+  });
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="container mx-auto p-4">
         <div className="flex flex-col md:flex-row md:space-x-4">
-          {/* 左侧 */}
+          {/* Left Side - Inputs */}
           <div className="w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -484,102 +496,112 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 右侧 */}
-          <div className="w-full md:w-1/2 p-4 bg-gray-50 rounded-lg shadow-md mt-4 md:mt-0">
-            <h2 className="text-2xl font-bold mb-4 border-b pb-2">Quotation</h2>
-            <div className="space-y-2">
-              <p><span className="font-semibold">Company:</span> {companyName}</p>
-              <p><span className="font-semibold">Quotation No:</span> {quotationNo}</p>
-              <p><span className="font-semibold">Project Name:</span> {projectName}</p>
-              <p><span className="font-semibold">Quotation Type:</span> {quotationType}</p>
-            </div>
+          {/* Right Side - Preview */}
+          <div>
+            <button onClick={handlePrint} className="mb-4 w-full p-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Generate PDF</button>
+            <div ref={componentRef} className="w-full p-4 bg-white rounded-lg shadow-md">
+              <Header />
+              <div className="p-4">
+                <h2 className="text-2xl font-bold mb-4 border-b pb-2">Quotation</h2>
+                <h2 className="text-2xl font-bold mb-4 border-b pb-2">Quotation</h2>
+                <div className="space-y-2">
+                  <p><span className="font-semibold">Company:</span> {companyName}</p>
+                  <p><span className="font-semibold">Quotation No:</span> {quotationNo}</p>
+                  <p><span className="font-semibold">Project Name:</span> {projectName}</p>
+                  <p><span className="font-semibold">Quotation Type:</span> {quotationType}</p>
+                </div>
 
-            <div className="mt-4 pt-4 border-t">
-              <h3 className="text-lg font-semibold mb-2">Price - Currency: USD</h3>
-              <table className="w-full text-sm text-left">
-                <thead className="bg-gray-200">
-                  <tr>
-                    <th className="p-2">Description</th>
-                    <th className="p-2">Type</th>
-                    <th className="p-2">Loading</th>
-                    <th className="p-2">Speed</th>
-                    <th className="p-2">F/S/D</th>
-                    <th className="p-2">QTY</th>
-                    <th className="p-2 text-right">Unit Price</th>
-                    <th className="p-2 text-right">Total Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="p-2">{description}</td>
-                    <td className="p-2">{type}</td>
-                    <td className="p-2">{capacity}KG</td>
-                    <td className="p-2">{speed} M/S</td>
-                    <td className="p-2">{floorsStops}</td>
-                    <td className="p-2">{qty}</td>
-                    <td className="p-2 text-right">{unitPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                    <td className="p-2 text-right">{itemTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                  </tr>
-                  <tr>
-                    <td colSpan={7} className="p-2 text-right font-semibold">Local fee and Freight from factory to {freightDestination} :</td>
-                    <td className="p-2 text-right">{freightCost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                  </tr>
-                  <tr className="font-bold bg-gray-100">
-                    <td colSpan={7} className="p-2 text-right">Total amount :</td>
-                    <td className="p-2 text-right">{grandTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                  </tr>
-                  <tr className="font-bold">
-                     <td colSpan={7} className="p-2 text-right">=</td>
-                     <td className="p-2 text-right">{convertedTotal.toLocaleString('en-US', { style: 'currency', currency: targetCurrency })}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                <div className="mt-4 pt-4 border-t">
+                  <h3 className="text-lg font-semibold mb-2">Price - Currency: USD</h3>
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-gray-200">
+                      <tr>
+                        <th className="p-2">Description</th>
+                        <th className="p-2">Type</th>
+                        <th className="p-2">Loading</th>
+                        <th className="p-2">Speed</th>
+                        <th className="p-2">F/S/D</th>
+                        <th className="p-2">QTY</th>
+                        <th className="p-2 text-right">Unit Price</th>
+                        <th className="p-2 text-right">Total Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="p-2">{description}</td>
+                        <td className="p-2">{type}</td>
+                        <td className="p-2">{capacity}KG</td>
+                        <td className="p-2">{speed} M/S</td>
+                        <td className="p-2">{floorsStops}</td>
+                        <td className="p-2">{qty}</td>
+                        <td className="p-2 text-right">{unitPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                        <td className="p-2 text-right">{itemTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                      </tr>
+                      <tr>
+                        <td colSpan={7} className="p-2 text-right font-semibold">Local fee and Freight from factory to {freightDestination} :</td>
+                        <td className="p-2 text-right">{freightCost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                      </tr>
+                      <tr className="font-bold bg-gray-100">
+                        <td colSpan={7} className="p-2 text-right">Total amount :</td>
+                        <td className="p-2 text-right">{grandTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                      </tr>
+                      <tr className="font-bold">
+                        <td colSpan={7} className="p-2 text-right">=</td>
+                        <td className="p-2 text-right">{convertedTotal.toLocaleString('en-US', { style: 'currency', currency: targetCurrency })}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-            <div className="mt-4 pt-4 border-t">
-              <h3 className="text-lg font-semibold mb-2">I. Basic specification</h3>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-                <p><span className="font-semibold">Capacity:</span></p><p>{capacity} kg</p>
-                <p><span className="font-semibold">Speed:</span></p><p>{speed} m/s</p>
-                <p className="col-span-2"><span className="font-semibold">Traction motor & Drive:</span> {tractionMotorAndDrive}</p>
-                <p><span className="font-semibold">Car Group:</span></p><p>{carGroup}</p>
-                <p><span className="font-semibold">Floors/Stops:</span></p><p>{floorsStops}</p>
-                <p className="col-span-2"><span className="font-semibold">Serving floors:</span> {servingFloors}</p>
-                <p><span className="font-semibold">Car Entrances:</span></p><p>{carEntrances}</p>
-                <p><span className="font-semibold">Power voltage:</span></p><p>{powerVoltage}</p>
-                <p><span className="font-semibold">Lighting voltage:</span></p><p>{lightingVoltage}</p>
-                <p><span className="font-semibold">Frequency:</span></p><p>{frequency}</p>
-                <p><span className="font-semibold">Machine room location:</span></p><p>{machineRoomLocation}</p>
-                <p><span className="font-semibold">Auto Rescue Device:</span></p><p>{autoRescueDevice}</p>
-                <p><span className="font-semibold">Roping system:</span></p><p>{ropingSystem}</p>
-                <p className="col-span-2"><span className="font-semibold">Inverter & control board:</span> {inverterAndControlBoard}</p>
-                <p className="col-span-2"><span className="font-semibold">Controller box:</span> {controllerBox}</p>
-              </div>
-            </div>
+                <div className="mt-4 pt-4 border-t">
+                  <h3 className="text-lg font-semibold mb-2">I. Basic specification</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <p><span className="font-semibold">Capacity:</span></p><p>{capacity} kg</p>
+                    <p><span className="font-semibold">Speed:</span></p><p>{speed} m/s</p>
+                    <p className="col-span-2"><span className="font-semibold">Traction motor & Drive:</span> {tractionMotorAndDrive}</p>
+                    <p><span className="font-semibold">Car Group:</span></p><p>{carGroup}</p>
+                    <p><span className="font-semibold">Floors/Stops:</span></p><p>{floorsStops}</p>
+                    <p className="col-span-2"><span className="font-semibold">Serving floors:</span> {servingFloors}</p>
+                    <p><span className="font-semibold">Car Entrances:</span></p><p>{carEntrances}</p>
+                    <p><span className="font-semibold">Power voltage:</span></p><p>{powerVoltage}</p>
+                    <p><span className="font-semibold">Lighting voltage:</span></p><p>{lightingVoltage}</p>
+                    <p><span className="font-semibold">Frequency:</span></p><p>{frequency}</p>
+                    <p><span className="font-semibold">Machine room location:</span></p><p>{machineRoomLocation}</p>
+                    <p><span className="font-semibold">Auto Rescue Device:</span></p><p>{autoRescueDevice}</p>
+                    <p><span className="font-semibold">Roping system:</span></p><p>{ropingSystem}</p>
+                    <p className="col-span-2"><span className="font-semibold">Inverter & control board:</span> {inverterAndControlBoard}</p>
+                    <p className="col-span-2"><span className="font-semibold">Controller box:</span> {controllerBox}</p>
+                  </div>
+                </div>
 
-            <div className="mt-4 pt-4 border-t">
-              <h3 className="text-lg font-semibold mb-2">II. Shaft specification</h3>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-                <p><span className="font-semibold">Shaft construction:</span></p><p>{shaftConstruction}</p>
-                <p><span className="font-semibold">Machine Room Height:</span></p><p>{machineRoomHeight}</p>
-                <p><span className="font-semibold">Shaft Dimension:</span></p><p>{shaftWidth}mm W * {shaftDepth}mm D</p>
-                <p><span className="font-semibold">Travel:</span></p><p>{travel} mm</p>
-                <p><span className="font-semibold">Pit depth:</span></p><p>{pitDepth} mm</p>
-                <p><span className="font-semibold">Overhead:</span></p><p>{overhead} mm</p>
-              </div>
-            </div>
+                <div className="mt-4 pt-4 border-t">
+                  <h3 className="text-lg font-semibold mb-2">II. Shaft specification</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <p><span className="font-semibold">Shaft construction:</span></p><p>{shaftConstruction}</p>
+                    <p><span className="font-semibold">Machine Room Height:</span></p><p>{machineRoomHeight}</p>
+                    <p><span className="font-semibold">Shaft Dimension:</span></p><p>{shaftWidth}mm W * {shaftDepth}mm D</p>
+                    <p><span className="font-semibold">Travel:</span></p><p>{travel} mm</p>
+                    <p><span className="font-semibold">Pit depth:</span></p><p>{pitDepth} mm</p>
+                    <p><span className="font-semibold">Overhead:</span></p><p>{overhead} mm</p>
+                  </div>
+                </div>
 
-            <div className="mt-4 pt-4 border-t">
-              <h3 className="text-lg font-semibold mb-2">III. Car specification</h3>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-                <p><span className="font-semibold">COP Plate:</span></p><p>{copPlate}</p>
-                <p><span className="font-semibold">Car Net Dimension:</span></p><p>{carWidth}mm W * {carDepth}mm D * {carHeight}mm H</p>
-                <p className="col-span-2"><span className="font-semibold">Car Ceiling:</span> {carCeiling}</p>
-                <p><span className="font-semibold">Car Floor:</span></p><p>{carFloor}</p>
-                <p className="col-span-2"><span className="font-semibold">Handrail:</span> {handrail}</p>
-                <p><span className="font-semibold">Left Car Wall:</span></p><p>{leftCarWall}</p>
-                <p><span className="font-semibold">Right Car Wall:</span></p><p>{rightCarWall}</p>
-                <p><span className="font-semibold">Rear Car Wall:</span></p><p>{rearCarWall}</p>
+                <div className="mt-4 pt-4 border-t">
+                  <h3 className="text-lg font-semibold mb-2">III. Car specification</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <p><span className="font-semibold">COP Plate:</span></p><p>{copPlate}</p>
+                    <p><span className="font-semibold">Car Net Dimension:</span></p><p>{carWidth}mm W * {carDepth}mm D * {carHeight}mm H</p>
+                    <p className="col-span-2"><span className="font-semibold">Car Ceiling:</span> {carCeiling}</p>
+                    <p><span className="font-semibold">Car Floor:</span></p><p>{carFloor}</p>
+                    <p className="col-span-2"><span className="font-semibold">Handrail:</span> {handrail}</p>
+                    <p><span className="font-semibold">Left Car Wall:</span></p><p>{leftCarWall}</p>
+                    <p><span className="font-semibold">Right Car Wall:</span></p><p>{rightCarWall}</p>
+                    <p><span className="font-semibold">Rear Car Wall:</span></p><p>{rearCarWall}</p>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t text-right text-sm text-gray-500">
+                  <p>Quotation Date: {quotationDate}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -588,3 +610,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Quote;
