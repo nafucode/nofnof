@@ -7,10 +7,46 @@ export default function Home() {
   const [quotationNo, setQuotationNo] = useState('');
   const [projectName, setProjectName] = useState('');
   const [type, setType] = useState('');
-  const [loading, setLoading] = useState('');
-  const [speed, setSpeed] = useState('');
+  const [capacity, setCapacity] = useState(450);
+  const [speed, setSpeed] = useState(0.63);
   const [unitPrice, setUnitPrice] = useState(0);
   const [qty, setQty] = useState(1);
+
+  // Basic Specification
+  const [tractionMotorAndDrive, setTractionMotorAndDrive] = useState('Gearless motor, with VVVF control, Mona drive');
+  const [carGroup, setCarGroup] = useState('Simplex Control');
+  const [floorsStops, setFloorsStops] = useState('4/4');
+  const [servingFloors, setServingFloors] = useState('G,1,2,3--COP & Display No.');
+  const [carEntrances, setCarEntrances] = useState('Single entrance');
+  const [powerVoltage, setPowerVoltage] = useState('380V-3 phase');
+  const [lightingVoltage, setLightingVoltage] = useState('220V-1 phase');
+  const [frequency, setFrequency] = useState('50HZ');
+  const [machineRoomLocation, setMachineRoomLocation] = useState('Machine Room Less');
+  const [autoRescueDevice, setAutoRescueDevice] = useState('Provided');
+  const [ropingSystem, setRopingSystem] = useState('2:1');
+  const [inverterAndControlBoard, setInverterAndControlBoard] = useState('Monarch NICE 3000');
+  const [controllerBox, setControllerBox] = useState('Iron sheet-standard');
+
+  // Shaft Specification
+  const [shaftConstruction, setShaftConstruction] = useState('Concrete and brick');
+  const [shaftWidth, setShaftWidth] = useState(1400);
+  const [shaftDepth, setShaftDepth] = useState(2200);
+  const [travel, setTravel] = useState(11000);
+  const [pitDepth, setPitDepth] = useState(1000);
+  const [overhead, setOverhead] = useState(3000);
+  const [machineRoomHeight, setMachineRoomHeight] = useState('NONE');
+
+  // Car Specification
+  const [copPlate, setCopPlate] = useState('');
+  const [carWidth, setCarWidth] = useState(1000);
+  const [carDepth, setCarDepth] = useState(1400);
+  const [carHeight, setCarHeight] = useState(2300);
+  const [carCeiling, setCarCeiling] = useState('Mirror stainless steel frame, acrylic light decoration, LED light');
+  const [carFloor, setCarFloor] = useState('PVC');
+  const [handrail, setHandrail] = useState('1PCS Round type Stainless Steel');
+  const [leftCarWall, setLeftCarWall] = useState('Hairline Stainless steel 1.2mm');
+  const [rightCarWall, setRightCarWall] = useState('Hairline Stainless steel 1.2mm');
+  const [rearCarWall, setRearCarWall] = useState('Hairline Stainless steel 1.2mm');
 
   const total = useMemo(() => {
     return unitPrice * qty;
@@ -60,24 +96,291 @@ export default function Home() {
                   onChange={(e) => setType(e.target.value)}
                 />
               </div>
+            </div>
+
+            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">I. Basic specification</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Loading</label>
+                <label className="block text-sm font-medium text-gray-700">Capacity (kg)</label>
                 <input
+                  type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Loading"
-                  value={loading}
-                  onChange={(e) => setLoading(e.target.value)}
+                  placeholder="Capacity"
+                  value={capacity}
+                  onChange={(e) => setCapacity(Number(e.target.value))}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Speed</label>
+                <label className="block text-sm font-medium text-gray-700">Speed (m/s)</label>
                 <input
+                  type="number"
+                  step="0.01"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Speed"
                   value={speed}
-                  onChange={(e) => setSpeed(e.target.value)}
+                  onChange={(e) => setSpeed(Number(e.target.value))}
                 />
               </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Traction motor & Drive</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={tractionMotorAndDrive}
+                  onChange={(e) => setTractionMotorAndDrive(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Group</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carGroup}
+                  onChange={(e) => setCarGroup(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Floors/Stops</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={floorsStops}
+                  onChange={(e) => setFloorsStops(e.target.value)}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Serving floors</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={servingFloors}
+                  onChange={(e) => setServingFloors(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Entrances</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carEntrances}
+                  onChange={(e) => setCarEntrances(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Power voltage</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={powerVoltage}
+                  onChange={(e) => setPowerVoltage(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Lighting voltage</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={lightingVoltage}
+                  onChange={(e) => setLightingVoltage(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Frequency</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={frequency}
+                  onChange={(e) => setFrequency(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Machine room location</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={machineRoomLocation}
+                  onChange={(e) => setMachineRoomLocation(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Auto Rescue Device</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={autoRescueDevice}
+                  onChange={(e) => setAutoRescueDevice(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Roping system</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={ropingSystem}
+                  onChange={(e) => setRopingSystem(e.target.value)}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Inverter & control board</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={inverterAndControlBoard}
+                  onChange={(e) => setInverterAndControlBoard(e.target.value)}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Controller box</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={controllerBox}
+                  onChange={(e) => setControllerBox(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">II. Shaft specification</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Shaft construction</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={shaftConstruction}
+                  onChange={(e) => setShaftConstruction(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Machine Room Height</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={machineRoomHeight}
+                  onChange={(e) => setMachineRoomHeight(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Shaft Width (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={shaftWidth}
+                  onChange={(e) => setShaftWidth(Number(e.target.value))}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Shaft Depth (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={shaftDepth}
+                  onChange={(e) => setShaftDepth(Number(e.target.value))}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Travel (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={travel}
+                  onChange={(e) => setTravel(Number(e.target.value))}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Pit depth (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={pitDepth}
+                  onChange={(e) => setPitDepth(Number(e.target.value))}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Overhead (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={overhead}
+                  onChange={(e) => setOverhead(Number(e.target.value))}
+                />
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">III. Car specification</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">COP Plate</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={copPlate}
+                  onChange={(e) => setCopPlate(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Width (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carWidth}
+                  onChange={(e) => setCarWidth(Number(e.target.value))}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Depth (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carDepth}
+                  onChange={(e) => setCarDepth(Number(e.target.value))}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Height (mm)</label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carHeight}
+                  onChange={(e) => setCarHeight(Number(e.target.value))}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Car Ceiling</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carCeiling}
+                  onChange={(e) => setCarCeiling(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Floor</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={carFloor}
+                  onChange={(e) => setCarFloor(e.target.value)}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Handrail</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={handrail}
+                  onChange={(e) => setHandrail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Left Car Wall</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={leftCarWall}
+                  onChange={(e) => setLeftCarWall(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Right Car Wall</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={rightCarWall}
+                  onChange={(e) => setRightCarWall(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Rear Car Wall</label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  value={rearCarWall}
+                  onChange={(e) => setRearCarWall(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">Price</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Unit Price</label>
                 <input
@@ -109,9 +412,55 @@ export default function Home() {
               <p><span className="font-semibold">Quotation No:</span> {quotationNo}</p>
               <p><span className="font-semibold">Project Name:</span> {projectName}</p>
               <p><span className="font-semibold">Type:</span> {type}</p>
-              <p><span className="font-semibold">Loading:</span> {loading}</p>
-              <p><span className="font-semibold">Speed:</span> {speed}</p>
             </div>
+
+            <div className="mt-4 pt-4 border-t">
+              <h3 className="text-lg font-semibold mb-2">I. Basic specification</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                <p><span className="font-semibold">Capacity:</span></p><p>{capacity} kg</p>
+                <p><span className="font-semibold">Speed:</span></p><p>{speed} m/s</p>
+                <p className="col-span-2"><span className="font-semibold">Traction motor & Drive:</span> {tractionMotorAndDrive}</p>
+                <p><span className="font-semibold">Car Group:</span></p><p>{carGroup}</p>
+                <p><span className="font-semibold">Floors/Stops:</span></p><p>{floorsStops}</p>
+                <p className="col-span-2"><span className="font-semibold">Serving floors:</span> {servingFloors}</p>
+                <p><span className="font-semibold">Car Entrances:</span></p><p>{carEntrances}</p>
+                <p><span className="font-semibold">Power voltage:</span></p><p>{powerVoltage}</p>
+                <p><span className="font-semibold">Lighting voltage:</span></p><p>{lightingVoltage}</p>
+                <p><span className="font-semibold">Frequency:</span></p><p>{frequency}</p>
+                <p><span className="font-semibold">Machine room location:</span></p><p>{machineRoomLocation}</p>
+                <p><span className="font-semibold">Auto Rescue Device:</span></p><p>{autoRescueDevice}</p>
+                <p><span className="font-semibold">Roping system:</span></p><p>{ropingSystem}</p>
+                <p className="col-span-2"><span className="font-semibold">Inverter & control board:</span> {inverterAndControlBoard}</p>
+                <p className="col-span-2"><span className="font-semibold">Controller box:</span> {controllerBox}</p>
+              </div>
+            </div>
+
+            <div className="mt-4 pt-4 border-t">
+              <h3 className="text-lg font-semibold mb-2">II. Shaft specification</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                <p><span className="font-semibold">Shaft construction:</span></p><p>{shaftConstruction}</p>
+                <p><span className="font-semibold">Machine Room Height:</span></p><p>{machineRoomHeight}</p>
+                <p><span className="font-semibold">Shaft Dimension:</span></p><p>{shaftWidth}mm W * {shaftDepth}mm D</p>
+                <p><span className="font-semibold">Travel:</span></p><p>{travel} mm</p>
+                <p><span className="font-semibold">Pit depth:</span></p><p>{pitDepth} mm</p>
+                <p><span className="font-semibold">Overhead:</span></p><p>{overhead} mm</p>
+              </div>
+            </div>
+
+            <div className="mt-4 pt-4 border-t">
+              <h3 className="text-lg font-semibold mb-2">III. Car specification</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                <p><span className="font-semibold">COP Plate:</span></p><p>{copPlate}</p>
+                <p><span className="font-semibold">Car Net Dimension:</span></p><p>{carWidth}mm W * {carDepth}mm D * {carHeight}mm H</p>
+                <p className="col-span-2"><span className="font-semibold">Car Ceiling:</span> {carCeiling}</p>
+                <p><span className="font-semibold">Car Floor:</span></p><p>{carFloor}</p>
+                <p className="col-span-2"><span className="font-semibold">Handrail:</span> {handrail}</p>
+                <p><span className="font-semibold">Left Car Wall:</span></p><p>{leftCarWall}</p>
+                <p><span className="font-semibold">Right Car Wall:</span></p><p>{rightCarWall}</p>
+                <p><span className="font-semibold">Rear Car Wall:</span></p><p>{rearCarWall}</p>
+              </div>
+            </div>
+
             <div className="mt-4 pt-4 border-t">
               <p className="text-lg font-bold text-right">Total: {total.toFixed(2)} USD</p>
             </div>
