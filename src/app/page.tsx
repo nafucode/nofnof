@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export default function Home() {
-  const [companyName, setCompanyName] = useState('');
-  const [quotationNo, setQuotationNo] = useState('');
-  const [projectName, setProjectName] = useState('');
+  const [companyName, setCompanyName] = useState('Your Company');
+  const [quotationNo, setQuotationNo] = useState('Q-2024001');
+  const [projectName, setProjectName] = useState('Sample Project');
 
   // Price
   const [description, setDescription] = useState('Passenger Lift');
@@ -55,6 +55,19 @@ export default function Home() {
   const [leftCarWall, setLeftCarWall] = useState('Hairline Stainless steel 1.2mm');
   const [rightCarWall, setRightCarWall] = useState('Hairline Stainless steel 1.2mm');
   const [rearCarWall, setRearCarWall] = useState('Hairline Stainless steel 1.2mm');
+
+  useEffect(() => {
+    if (targetCurrency) {
+      fetch(`https://open.er-api.com/v6/latest/USD`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.rates && data.rates[targetCurrency]) {
+            setExchangeRate(data.rates[targetCurrency]);
+          }
+        })
+        .catch(error => console.error("Error fetching exchange rate:", error));
+    }
+  }, [targetCurrency]);
 
   const itemTotal = useMemo(() => {
     return unitPrice * qty;
@@ -161,11 +174,16 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Target Currency</label>
-                <input
+                <select
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                   value={targetCurrency}
                   onChange={(e) => setTargetCurrency(e.target.value)}
-                />
+                >
+                  <option>NGN</option>
+                  <option>CNY</option>
+                  <option>USD</option>
+                  <option>AUD</option>
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Exchange Rate</label>
