@@ -96,10 +96,10 @@ const Quote = () => {
         <div className="flex flex-col md:flex-row md:space-x-4">
           {/* Left Side - Inputs */}
           <div className="w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md no-print">
-            <h2 className="text-xl font-semibold mb-4">Details</h2>
+            <h2 className="text-xl font-semibold mb-4">Details<span className="block text-base font-normal text-gray-500">详细信息</span></h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Company Name</label>
+                <label className="block text-sm font-medium text-gray-700">Company Name<span className="block text-xs text-gray-500">公司名称</span></label>
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={companyName}
@@ -107,7 +107,7 @@ const Quote = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Quotation No</label>
+                <label className="block text-sm font-medium text-gray-700">Quotation No<span className="block text-xs text-gray-500">报价单号</span></label>
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={quotationNo}
@@ -115,7 +115,7 @@ const Quote = () => {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Project Name</label>
+                <label className="block text-sm font-medium text-gray-700">Project Name<span className="block text-xs text-gray-500">项目名称</span></label>
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={projectName}
@@ -123,7 +123,7 @@ const Quote = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Quotation Type</label>
+                <label className="block text-sm font-medium text-gray-700">Quotation Type<span className="block text-xs text-gray-500">报价类型</span></label>
                 <select
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={quotationType}
@@ -136,10 +136,10 @@ const Quote = () => {
               </div>
             </div>
             
-            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">Freight & Currency</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">Freight & Currency<span className="block text-sm font-normal text-gray-500">运费和货币</span></h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Freight Destination</label>
+                <label className="block text-sm font-medium text-gray-700">Freight Destination<span className="block text-xs text-gray-500">目的地</span></label>
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={freightDestination}
@@ -147,7 +147,7 @@ const Quote = () => {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Freight Cost</label>
+                <label className="block text-sm font-medium text-gray-700">Freight Cost<span className="block text-xs text-gray-500">运费</span></label>
                 <input
                   type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
@@ -156,7 +156,7 @@ const Quote = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Target Currency</label>
+                <label className="block text-sm font-medium text-gray-700">Target Currency<span className="block text-xs text-gray-500">目标货币</span></label>
                 <select
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={targetCurrency}
@@ -170,7 +170,7 @@ const Quote = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Exchange Rate</label>
+                <label className="block text-sm font-medium text-gray-700">Exchange Rate<span className="block text-xs text-gray-500">汇率</span></label>
                 <input
                   type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"

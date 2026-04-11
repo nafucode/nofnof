@@ -48,23 +48,23 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Basic Info */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <label className="block text-sm font-medium text-gray-700">Description<span className="block text-xs text-gray-500">描述</span></label>
             <input name="description" value={elevator.description} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Type</label>
+            <label className="block text-sm font-medium text-gray-700">Type<span className="block text-xs text-gray-500">类型</span></label>
             <input name="type" value={elevator.type} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Capacity (kg)</label>
+            <label className="block text-sm font-medium text-gray-700">Capacity (kg)<span className="block text-xs text-gray-500">载重 (kg)</span></label>
             <input type="number" name="capacity" value={elevator.capacity} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Speed (m/s)</label>
+            <label className="block text-sm font-medium text-gray-700">Speed (m/s)<span className="block text-xs text-gray-500">速度 (m/s)</span></label>
             <input type="number" step="0.01" name="speed" value={elevator.speed} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Qty</label>
+            <label className="block text-sm font-medium text-gray-700">Qty<span className="block text-xs text-gray-500">数量</span></label>
             <input type="number" name="qty" value={elevator.qty} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
           
@@ -72,11 +72,11 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
           <div className="sm:col-span-2">
             <div className="grid grid-cols-2 gap-4 p-4 mt-4 border rounded-lg bg-gray-100">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Unit Price</label>
+                <label className="block text-sm font-medium text-gray-700">Unit Price<span className="block text-xs text-gray-500">单价</span></label>
                 <input type="number" name="unitPrice" value={elevator.unitPrice} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Total Price</label>
+                <label className="block text-sm font-medium text-gray-700">Total Price<span className="block text-xs text-gray-500">总价</span></label>
                 <p className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm bg-gray-200">
                   {(elevator.unitPrice * elevator.qty).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                 </p>
@@ -86,18 +86,18 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
 
           {/* Basic Specification */}
           <div className="sm:col-span-2" onFocus={() => onSectionFocus('basic-spec')}>
-            <h4 className="text-md font-semibold mt-4 border-b">I. Basic specification</h4>
+            <h4 className="text-md font-semibold mt-4 border-b">I. Basic specification<span className="block text-sm font-normal text-gray-500">基本规格</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Control System</label>
+                <label className="block text-sm font-medium text-gray-700">Control System<span className="block text-xs text-gray-500">控制系统</span></label>
                 <input name="controlSystem" value={elevator.controlSystem} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Drive System</label>
+                <label className="block text-sm font-medium text-gray-700">Drive System<span className="block text-xs text-gray-500">驱动系统</span></label>
                 <input name="driveSystem" value={elevator.driveSystem} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Floors/Stops</label>
+                <label className="block text-sm font-medium text-gray-700">Floors/Stops<span className="block text-xs text-gray-500">楼层/站</span></label>
                 <input name="floorsStops" value={elevator.floorsStops} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
             </div>
@@ -105,22 +105,22 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
 
           {/* Hoistway specification */}
           <div className="sm:col-span-2" onFocus={() => onSectionFocus('hoistway-spec')}>
-            <h4 className="text-md font-semibold mt-4 border-b">II. Hoistway specification</h4>
+            <h4 className="text-md font-semibold mt-4 border-b">II. Hoistway specification<span className="block text-sm font-normal text-gray-500">井道规格</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Headroom (mm)</label>
+                <label className="block text-sm font-medium text-gray-700">Headroom (mm)<span className="block text-xs text-gray-500">顶层高度 (mm)</span></label>
                 <input type="number" name="headroom" value={elevator.headroom} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Pit Depth (mm)</label>
+                <label className="block text-sm font-medium text-gray-700">Pit Depth (mm)<span className="block text-xs text-gray-500">底坑深度 (mm)</span></label>
                 <input type="number" name="pitDepth" value={elevator.pitDepth} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Shaft Size (W x D mm)</label>
+                <label className="block text-sm font-medium text-gray-700">Shaft Size (W x D mm)<span className="block text-xs text-gray-500">井道尺寸 (宽 x 深 mm)</span></label>
                 <input name="shaftSize" value={elevator.shaftSize} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Machine Room Size (W x D x H mm)</label>
+                <label className="block text-sm font-medium text-gray-700">Machine Room Size (W x D x H mm)<span className="block text-xs text-gray-500">机房尺寸 (宽 x 深 x 高 mm)</span></label>
                 <input name="machineRoomSize" value={elevator.machineRoomSize} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
             </div>
@@ -128,26 +128,26 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
 
           {/* Door specification */}
           <div className="sm:col-span-2" onFocus={() => onSectionFocus('door-spec')}>
-            <h4 className="text-md font-semibold mt-4 border-b">III. Door specification</h4>
+            <h4 className="text-md font-semibold mt-4 border-b">III. Door specification<span className="block text-sm font-normal text-gray-500">门规格</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Door Opening Type</label>
+                <label className="block text-sm font-medium text-gray-700">Door Opening Type<span className="block text-xs text-gray-500">开门方式</span></label>
                 <input name="doorOpeningType" value={elevator.doorOpeningType} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Door Opening Size (W x H mm)</label>
+                <label className="block text-sm font-medium text-gray-700">Door Opening Size (W x H mm)<span className="block text-xs text-gray-500">开门尺寸 (宽 x 高 mm)</span></label>
                 <input name="doorOpeningSize" value={elevator.doorOpeningSize} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Door Header Type</label>
+                <label className="block text-sm font-medium text-gray-700">Door Header Type<span className="block text-xs text-gray-500">门头类型</span></label>
                 <input name="doorHeaderType" value={elevator.doorHeaderType} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">1st Floor Door Decoration</label>
+                <label className="block text-sm font-medium text-gray-700">1st Floor Door Decoration<span className="block text-xs text-gray-500">首层门装饰</span></label>
                 <input name="firstFloorDoor" value={elevator.firstFloorDoor} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Other Floors Door Decoration</label>
+                <label className="block text-sm font-medium text-gray-700">Other Floors Door Decoration<span className="block text-xs text-gray-500">其它楼层门装饰</span></label>
                 <input name="otherFloorsDoor" value={elevator.otherFloorsDoor} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
             </div>
@@ -155,22 +155,22 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
 
           {/* Cabin Decoration */}
           <div className="sm:col-span-2" onFocus={() => onSectionFocus('cabin-deco')}>
-            <h4 className="text-md font-semibold mt-4 border-b">IV. Cabin Decoration</h4>
+            <h4 className="text-md font-semibold mt-4 border-b">IV. Cabin Decoration<span className="block text-sm font-normal text-gray-500">轿厢装饰</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Wall</label>
+                <label className="block text-sm font-medium text-gray-700">Car Wall<span className="block text-xs text-gray-500">轿壁</span></label>
                 <input name="carWall" value={elevator.carWall} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Ceiling</label>
+                <label className="block text-sm font-medium text-gray-700">Car Ceiling<span className="block text-xs text-gray-500">轿顶</span></label>
                 <input name="carCeiling" value={elevator.carCeiling} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Floor</label>
+                <label className="block text-sm font-medium text-gray-700">Car Floor<span className="block text-xs text-gray-500">轿底</span></label>
                 <input name="carFloor" value={elevator.carFloor} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Handrail</label>
+                <label className="block text-sm font-medium text-gray-700">Car Handrail<span className="block text-xs text-gray-500">扶手</span></label>
                 <input name="carHandrail" value={elevator.carHandrail} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
             </div>
@@ -178,14 +178,14 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
 
           {/* Function */}
           <div className="sm:col-span-2" onFocus={() => onSectionFocus('function-spec')}>
-            <h4 className="text-md font-semibold mt-4 border-b">V. Function</h4>
+            <h4 className="text-md font-semibold mt-4 border-b">V. Function<span className="block text-sm font-normal text-gray-500">功能</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">COP/LOP</label>
+                <label className="block text-sm font-medium text-gray-700">COP/LOP<span className="block text-xs text-gray-500">操纵盘/外呼</span></label>
                 <input name="copLop" value={elevator.copLop} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
               </div>
               <div className="sm:col-span-2 space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Other Functions</label>
+                <label className="block text-sm font-medium text-gray-700">Other Functions<span className="block text-xs text-gray-500">其它功能</span></label>
                 {elevator.otherFunctions.map((func: any) => (
                   <div key={func.id} className="flex items-center gap-2">
                     <input
