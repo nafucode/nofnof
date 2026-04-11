@@ -1,13 +1,13 @@
 const Header = () => (
-  <div style={{ background: 'linear-gradient(to right, #2d3748, #4a5568)', padding: '2rem' }}>
-    <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
-      <text x="10" y="25" fill="white" style={{ fontSize: '24px', fontWeight: 'bold' }}>
+  <div style={{ background: 'linear-gradient(to right, #2d3748, #4a5568)', padding: '1rem' }}>
+    <svg viewBox="0 0 200 25" xmlns="http://www.w3.org/2000/svg">
+      <text x="10" y="15" fill="white" style={{ fontSize: '12px', fontWeight: 'bold' }}>
         LG
       </text>
-      <text x="10" y="45" fill="white" style={{ fontSize: '12px', letterSpacing: '0.1em' }}>
+      <text x="10" y="23" fill="white" style={{ fontSize: '6px', letterSpacing: '0.1em' }}>
         PRECISION
       </text>
-      <text x="105" y="45" fill="#A0AEC0" style={{ fontSize: '6px' }}>
+      <text x="75" y="23" fill="#A0AEC0" style={{ fontSize: '3px' }}>
         Precision Elevation, Defining Spaces.
       </text>
     </svg>
