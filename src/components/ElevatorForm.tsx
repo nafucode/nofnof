@@ -51,7 +51,12 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
             <label className="block text-sm font-medium text-gray-700">Qty</label>
             <input type="number" name="qty" value={elevator.qty} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
           </div>
-          {/* ... Add all other specification fields in the same way ... */}
+          {/* All other specification fields */}
+          <div className="sm:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Traction motor & Drive</label>
+            <input name="tractionMotorAndDrive" value={elevator.tractionMotorAndDrive} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+          </div>
+          {/* ... and so on for all fields in elevatorTemplate ... */}
         </div>
       )}
     </div>
