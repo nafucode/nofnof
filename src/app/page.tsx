@@ -1,7 +1,6 @@
 
 "use client";
 import { useState, useMemo, useEffect, useRef } from 'react';
-
 import Header from '@/components/Header';
 import ElevatorForm from '@/components/ElevatorForm';
 import { elevatorTemplate } from '@/data/elevatorTemplate';
@@ -22,8 +21,6 @@ const Quote = () => {
 
   const componentRef = useRef(null);
   const nextId = useRef(2);
-
-
 
   useEffect(() => {
     if (focusedSection) {
@@ -200,53 +197,56 @@ const Quote = () => {
                   <p><span className="font-semibold">Quotation Type:</span> {quotationType}</p>
                 </div>
 
-                <div className="mt-4 pt-4 border-t">
+                <div className="mt-4 pt-4 border-t overflow-x-auto">
                   <h3 className="text-lg font-semibold mb-2">Price - Currency: USD</h3>
                   <table className="w-full text-sm text-left printable-table">
                     <thead className="bg-gray-200">
                       <tr>
                         <th className="p-2">Description</th>
+                        <th className="p-2">QTY</th>
+                        <th className="p-2 text-right">Unit Price</th>
+                        <th className="p-2 text-right">Total Price</th>
                         <th className="p-2">Type</th>
                         <th className="p-2">Loading</th>
                         <th className="p-2">Speed</th>
                         <th className="p-2">F/S/D</th>
-                        <th className="p-2">QTY</th>
-                        <th className="p-2 text-right">Unit Price</th>
-                        <th className="p-2 text-right">Total Price</th>
                       </tr>
                     </thead>
                     <tbody>
                       {elevators.map(elevator => (
                         <tr key={elevator.id}>
                           <td className="p-2">{elevator.description}</td>
+                          <td className="p-2">{elevator.qty}</td>
+                          <td className="p-2 text-right">{elevator.unitPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                          <td className="p-2 text-right">{(elevator.unitPrice * elevator.qty).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                           <td className="p-2">{elevator.type}</td>
                           <td className="p-2">{elevator.capacity}KG</td>
                           <td className="p-2">{elevator.speed} M/S</td>
                           <td className="p-2">{elevator.floorsStops}</td>
-                          <td className="p-2">{elevator.qty}</td>
-                          <td className="p-2 text-right">{elevator.unitPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                          <td className="p-2 text-right">{(elevator.unitPrice * elevator.qty).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                         </tr>
                       ))}
                       <tr>
-                        <td colSpan={7} className="p-2 text-right font-semibold">Local fee and Freight from factory to {freightDestination} :</td>
+                        <td colSpan={3} className="p-2 text-right font-semibold">Local fee and Freight from factory to {freightDestination} :</td>
                         <td className="p-2 text-right">{freightCost.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                        <td colSpan={4}></td>
                       </tr>
                       <tr className="font-bold bg-gray-100">
-                        <td colSpan={7} className="p-2 text-right">Total amount :</td>
+                        <td colSpan={3} className="p-2 text-right">Total amount :</td>
                         <td className="p-2 text-right">{grandTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                        <td colSpan={4}></td>
                       </tr>
                       {targetCurrency !== 'USD' && targetCurrency !== '-' && (
                         <tr className="font-bold">
-                          <td colSpan={7} className="p-2 text-right">=</td>
+                          <td colSpan={3} className="p-2 text-right">=</td>
                           <td className="p-2 text-right">{convertedTotal.toLocaleString('en-US', { style: 'currency', currency: targetCurrency })}</td>
+                          <td colSpan={4}></td>
                         </tr>
                       )}
                     </tbody>
                   </table>
                 </div>
 
-                <div className="mt-4 pt-4 border-t overflow-x-auto">
+                <div className="mt-4 pt-4 border-t">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-lg font-semibold">Specifications</h3>
                     <div className="flex space-x-1">
@@ -273,7 +273,7 @@ const Quote = () => {
 
                     return (
                       <div className="text-sm">
-                        <div>
+                        <div className="break-inside-avoid">
                           <h4 id="preview-basic-spec" className={`text-md font-semibold mt-2 border-b px-2 py-1 ${focusedSection === 'basic-spec' ? 'bg-yellow-200' : 'bg-gray-100'}`}>I. Basic specification</h4>
                           {renderSpec('Description', selectedElevator.description)}
                           {renderSpec('Type', selectedElevator.type)}
@@ -284,7 +284,7 @@ const Quote = () => {
                           {renderSpec('Drive System', selectedElevator.driveSystem)}
                         </div>
                         
-                        <div>
+                        <div className="break-inside-avoid">
                           <h4 id="preview-hoistway-spec" className={`text-md font-semibold mt-4 border-b px-2 py-1 ${focusedSection === 'hoistway-spec' ? 'bg-yellow-200' : 'bg-gray-100'}`}>II. Hoistway specification</h4>
                           {renderSpec('Headroom (mm)', selectedElevator.headroom)}
                           {renderSpec('Pit Depth (mm)', selectedElevator.pitDepth)}
@@ -292,8 +292,20 @@ const Quote = () => {
                           {renderSpec('Machine Room Size (W x D x H mm)', selectedElevator.machineRoomSize)}
                         </div>
 
-                        <div>
-                          <h4 id="preview-door-spec" className={`text-md font-semibold mt-4 border-b px-2 py-1 ${focusedSection === 'door-spec' ? 'bg-yellow-200' : 'bg-gray-100'}`}>III. Door specification</h4>
+                        <div className="break-inside-avoid">
+                          <h4 id="preview-car-spec" className={`text-md font-semibold mt-4 border-b px-2 py-1 ${focusedSection === 'car-spec' ? 'bg-yellow-200' : 'bg-gray-100'}`}>III. Car Specification</h4>
+                          {renderSpec('COP Plate', selectedElevator.copPlate)}
+                          {renderSpec('Car Net Dimension', selectedElevator.carNetDimension)}
+                          {renderSpec('Car Ceiling', selectedElevator.carCeiling)}
+                          {renderSpec('Car Floor', selectedElevator.carFloor)}
+                          {renderSpec('Handrail', selectedElevator.carHandrail)}
+                          {renderSpec('Left wall finish', selectedElevator.carWall.left)}
+                          {renderSpec('Right wall finish', selectedElevator.carWall.right)}
+                          {renderSpec('Rear wall finish', selectedElevator.carWall.rear)}
+                        </div>
+
+                        <div className="break-inside-avoid">
+                          <h4 id="preview-door-spec" className={`text-md font-semibold mt-4 border-b px-2 py-1 ${focusedSection === 'door-spec' ? 'bg-yellow-200' : 'bg-gray-100'}`}>IV. Door specification</h4>
                           {renderSpec('Door Opening Type', selectedElevator.doorOpeningType)}
                           {renderSpec('Door Opening Size (W x H mm)', selectedElevator.doorOpeningSize)}
                           {renderSpec('Door Header Type', selectedElevator.doorHeaderType)}
@@ -301,15 +313,7 @@ const Quote = () => {
                           {renderSpec('Other Floors Door Decoration', selectedElevator.otherFloorsDoor)}
                         </div>
 
-                        <div>
-                          <h4 id="preview-cabin-deco" className={`text-md font-semibold mt-4 border-b px-2 py-1 ${focusedSection === 'cabin-deco' ? 'bg-yellow-200' : 'bg-gray-100'}`}>IV. Cabin Decoration</h4>
-                          {renderSpec('Car Wall', selectedElevator.carWall)}
-                          {renderSpec('Car Ceiling', selectedElevator.carCeiling)}
-                          {renderSpec('Car Floor', selectedElevator.carFloor)}
-                          {renderSpec('Car Handrail', selectedElevator.carHandrail)}
-                        </div>
-
-                        <div>
+                        <div className="break-inside-avoid">
                           <h4 id="preview-function-spec" className={`text-md font-semibold mt-4 border-b px-2 py-1 ${focusedSection === 'function-spec' ? 'bg-yellow-200' : 'bg-gray-100'}`}>V. Function</h4>
                           {renderSpec('COP/LOP', selectedElevator.copLop)}
                           {selectedElevator.otherFunctions.map((func: any) => 
@@ -320,10 +324,13 @@ const Quote = () => {
                     );
                   })()}
                 </div>
-
+                
                 <div className="mt-4 pt-4 border-t text-right text-sm text-gray-500">
                   <p>Quotation Date: {quotationDate}</p>
                 </div>
+              </div>
+              <div className="hidden print:block print-footer">
+                www.xinfuji.com
               </div>
             </div>
           </div>

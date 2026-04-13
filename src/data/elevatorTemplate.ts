@@ -1,8 +1,8 @@
 export const elevatorTemplate = {
-  id: Date.now(),
+  id: 1,
   isCollapsed: false,
 
-  // Basic Spec
+  // Basic Info
   description: 'Passenger Lift',
   type: 'TKJ1000/1.75-VVVF',
   capacity: 1000,
@@ -19,26 +19,31 @@ export const elevatorTemplate = {
   shaftSize: '2100x2400',
   machineRoomSize: 'N/A',
 
+  // Car Spec
+  copPlate: 'Standard',
+  carNetDimension: '1000x1400x2300',
+  carCeiling: 'Mirror stainless steel frame, acrylic light decoration, LED light',
+  carFloor: 'PVC',
+  carHandrail: '1 PCS, Round type Stainless Steel',
+  carWall: {
+    left: 'Hairline Stainless Steel',
+    right: 'Hairline Stainless Steel',
+    rear: 'Hairline Stainless Steel',
+  },
+
   // Door Spec
   doorOpeningType: 'Center Opening',
-  doorOpeningSize: '900x2100',
+  doorOpeningSize: '800x2100',
   doorHeaderType: 'Standard',
   firstFloorDoor: 'Etching Mirror Stainless Steel',
   otherFloorsDoor: 'Hairline Stainless Steel',
 
-  // Cabin Decoration
-  carWall: 'Mirror etching + Hairline stainless steel',
-  carCeiling: 'Mirror stainless steel frame, acrylic light decoration, LED light',
-  carFloor: 'PVC',
-  carHandrail: '1 PCS, Round type Stainless Steel',
-
   // Function
-  copLop: 'Integrated type with LCD display',
+  copLop: 'Standard',
   otherFunctions: [
-    { id: 1, name: 'ARD (Automatic Rescue Device)', checked: true },
-    { id: 2, name: 'Intercom', checked: true },
-    { id: 3, name: 'Fire Emergency Return', checked: true },
-    { id: 4, name: 'Air Conditioner', checked: false },
-    { id: 5, name: 'CCTV', checked: false },
+    { id: 1, name: 'Automatic rescue device (ARD)', checked: true },
+    { id: 2, name: 'Full collective control', checked: true },
+    { id: 3, name: 'Emergency light', checked: true },
+    { id: 4, name: 'Intercom system', checked: true },
   ],
 };

@@ -15,11 +15,17 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
     onChange(elevator.id, name, isNumber ? Number(value) : value);
   };
 
-  const handleFunctionChange = (funcId: number, field: string, value: string | boolean) => {
+  const handleFunctionChange = (funcId: number, key: string, value: any) => {
     const updatedFunctions = elevator.otherFunctions.map((func: any) => 
-      func.id === funcId ? { ...func, [field]: value } : func
+      func.id === funcId ? { ...func, [key]: value } : func
     );
     onChange(elevator.id, 'otherFunctions', updatedFunctions);
+  };
+
+  const handleCarWallChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const wall = name.split('.')[1]; // 'left', 'right', or 'rear'
+    onChange(elevator.id, 'carWall', { ...elevator.carWall, [wall]: value });
   };
 
   const addFunction = () => {
@@ -126,9 +132,53 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
             </div>
           </div>
 
+          {/* Car Specification */}
+          <div className="sm:col-span-2" onFocus={() => onSectionFocus('car-spec')}>
+            <h4 className="text-md font-semibold mt-4 border-b">III. Car Specification<span className="block text-sm font-normal text-gray-500">轿厢规格</span></h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">COP Plate<span className="block text-xs text-gray-500">操纵盘</span></label>
+                  <input name="copPlate" value={elevator.copPlate} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Car Net Dimension<span className="block text-xs text-gray-500">轿厢净尺寸</span></label>
+                  <input name="carNetDimension" value={elevator.carNetDimension} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+                </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Car wall finish<span className="block text-xs text-gray-500">轿壁装饰</span></label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500">Left wall<span className="block text-xs text-gray-500">左壁</span></label>
+                    <input name="carWall.left" value={elevator.carWall.left} onChange={handleCarWallChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500">Right wall<span className="block text-xs text-gray-500">右壁</span></label>
+                    <input name="carWall.right" value={elevator.carWall.right} onChange={handleCarWallChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500">Rear wall<span className="block text-xs text-gray-500">后壁</span></label>
+                    <input name="carWall.rear" value={elevator.carWall.rear} onChange={handleCarWallChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Ceiling<span className="block text-xs text-gray-500">轿顶</span></label>
+                <input name="carCeiling" value={elevator.carCeiling} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Car Floor<span className="block text-xs text-gray-500">轿底</span></label>
+                <input name="carFloor" value={elevator.carFloor} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+              </div>
+              <div>
+                  <label className="block text-sm font-medium text-gray-700">Handrail<span className="block text-xs text-gray-500">扶手</span></label>
+                  <input name="carHandrail" value={elevator.carHandrail} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
+                </div>
+            </div>
+          </div>
+
           {/* Door specification */}
           <div className="sm:col-span-2" onFocus={() => onSectionFocus('door-spec')}>
-            <h4 className="text-md font-semibold mt-4 border-b">III. Door specification<span className="block text-sm font-normal text-gray-500">门规格</span></h4>
+            <h4 className="text-md font-semibold mt-4 border-b">IV. Door specification<span className="block text-sm font-normal text-gray-500">门规格</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Door Opening Type<span className="block text-xs text-gray-500">开门方式</span></label>
@@ -153,32 +203,9 @@ const ElevatorForm: React.FC<ElevatorFormProps> = ({ elevator, onChange, onRemov
             </div>
           </div>
 
-          {/* Cabin Decoration */}
-          <div className="sm:col-span-2" onFocus={() => onSectionFocus('cabin-deco')}>
-            <h4 className="text-md font-semibold mt-4 border-b">IV. Cabin Decoration<span className="block text-sm font-normal text-gray-500">轿厢装饰</span></h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Wall<span className="block text-xs text-gray-500">轿壁</span></label>
-                <input name="carWall" value={elevator.carWall} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
-              </div>
-              <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Ceiling<span className="block text-xs text-gray-500">轿顶</span></label>
-                <input name="carCeiling" value={elevator.carCeiling} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
-              </div>
-              <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Floor<span className="block text-xs text-gray-500">轿底</span></label>
-                <input name="carFloor" value={elevator.carFloor} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
-              </div>
-              <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Car Handrail<span className="block text-xs text-gray-500">扶手</span></label>
-                <input name="carHandrail" value={elevator.carHandrail} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" />
-              </div>
-            </div>
-          </div>
-
           {/* Function */}
-          <div className="sm:col-span-2" onFocus={() => onSectionFocus('function-spec')}>
-            <h4 className="text-md font-semibold mt-4 border-b">V. Function<span className="block text-sm font-normal text-gray-500">功能</span></h4>
+            <div className="sm:col-span-2" onFocus={() => onSectionFocus('function-spec')}>
+              <h4 className="text-md font-semibold mt-4 border-b">V. Function<span className="block text-sm font-normal text-gray-500">功能</span></h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700">COP/LOP<span className="block text-xs text-gray-500">操纵盘/外呼</span></label>
