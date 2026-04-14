@@ -50,8 +50,8 @@ export const elevatorTemplate = {
   // Cabin Effect
   cabinEffect: {
     cabinImage: '',
-    copImage: '/Standard-COPLOP.png',
-    lopImage: '/Standard-COPLOP.png',
+    copImage: '',
+    lopImage: '',
     ceiling: { type: 'text', value: 'AS cabin picture' },
     button: { type: 'text', value: 'Round standard' },
     floor: { type: 'text', value: 'PVC As Picture' },

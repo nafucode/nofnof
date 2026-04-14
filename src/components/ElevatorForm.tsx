@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import StylePicker from './StylePicker';
+import { cabinStyles } from '@/data/cabinStyles';
+import { copStyles } from '@/data/copStyles';
+import { lopStyles } from '@/data/lopStyles';
 
 const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectionFocus }: any) => {
+  const [pickerState, setPickerState] = useState({ isOpen: false, type: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -18,12 +23,6 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
     const { name, value } = e.target;
     const wall = name.split('.')[1]; // 'left', 'right', or 'rear'
     onChange(elevator.id, 'carWall', { ...elevator.carWall, [wall]: value });
-  };
-
-  const handleCabinEffectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const newCabinEffect = { ...elevator.cabinEffect, [name]: value };
-    onChange(elevator.id, 'cabinEffect', newCabinEffect);
   };
 
   const handleCabinEffectFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +66,39 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
     onChange(elevator.id, 'otherFunctions', updatedFunctions);
   };
 
+  const handleStyleSelect = (style: { id: string; name: string; previewImage: string }) => {
+    let newCabinEffect;
+    if (pickerState.type === 'cabin') {
+      newCabinEffect = {
+        ...elevator.cabinEffect,
+        cabinImage: style.previewImage,
+        ceiling: { type: 'text', value: style.id },
+      };
+    } else if (pickerState.type === 'cop') {
+      newCabinEffect = { ...elevator.cabinEffect, copImage: style.previewImage };
+    } else if (pickerState.type === 'lop') {
+      newCabinEffect = { ...elevator.cabinEffect, lopImage: style.previewImage };
+    }
+    onChange(elevator.id, 'cabinEffect', newCabinEffect);
+  };
+
+  const openPicker = (type: string) => {
+    setPickerState({ isOpen: true, type });
+  };
+
+  const getPickerProps = () => {
+    switch (pickerState.type) {
+      case 'cabin':
+        return { styles: cabinStyles, title: 'Choose a Cabin Style' };
+      case 'cop':
+        return { styles: copStyles, title: 'Choose a COP Style' };
+      case 'lop':
+        return { styles: lopStyles, title: 'Choose a LOP Style' };
+      default:
+        return { styles: [], title: '' };
+    }
+  };
+
   const HybridInput = ({ label, labelChinese, fieldName }: { label: string, labelChinese: string, fieldName: string }) => {
     const fieldData = elevator.cabinEffect[fieldName];
     return (
@@ -93,6 +125,7 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
 
   return (
     <div className="border-t mt-4 pt-4">
+      {pickerState.isOpen && <StylePicker {...getPickerProps()} onSelect={handleStyleSelect} onClose={() => setPickerState({ isOpen: false, type: '' })} />}
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">Elevator #L{elevator.id}</h3>
         <div>
@@ -269,16 +302,17 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Cabin Image<span className="block text-xs text-gray-500">轿厢图片</span></label>
                   <input type="file" name="cabinImage" onChange={handleCabinEffectFileChange} className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"/>
+                  <button onClick={() => openPicker('cabin')} className="mt-2 p-2 text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600">Choose from Library</button>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">COP Image<span className="block text-xs text-gray-500">操纵盘图片</span></label>
                   <input type="file" name="copImage" onChange={handleCabinEffectFileChange} className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"/>
-                  <button onClick={() => onChange(elevator.id, 'cabinEffect', { ...elevator.cabinEffect, copImage: '/Standard-COPLOP.png' })} className="mt-2 p-2 text-sm bg-gray-500 text-white rounded-md hover:bg-gray-600">Use Standard</button>
+                  <button onClick={() => openPicker('cop')} className="mt-2 p-2 text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600">Choose from Library</button>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">LOP Image<span className="block text-xs text-gray-500">外呼图片</span></label>
                   <input type="file" name="lopImage" onChange={handleCabinEffectFileChange} className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"/>
-                  <button onClick={() => onChange(elevator.id, 'cabinEffect', { ...elevator.cabinEffect, lopImage: '/Standard-COPLOP.png' })} className="mt-2 p-2 text-sm bg-gray-500 text-white rounded-md hover:bg-gray-600">Use Standard</button>
+                  <button onClick={() => openPicker('lop')} className="mt-2 p-2 text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600">Choose from Library</button>
                 </div>
                 <HybridInput label="Landing Door" labelChinese="厅门" fieldName="landingDoor" />
                 <HybridInput label="Ceiling" labelChinese="天花板" fieldName="ceiling" />
