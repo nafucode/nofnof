@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useQuoteStore } from '@/store/useQuoteStore';
 import StylePicker from './StylePicker';
 import HybridInput from './HybridInput';
 import { cabinStyles } from '@/data/cabinStyles';
@@ -7,25 +8,26 @@ import { lopStyles } from '@/data/lopStyles';
 import { landingDoorStyles } from '@/data/landingDoorStyles';
 import { handrailStyles } from '@/data/handrailStyles';
 
-const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectionFocus }: any) => {
+const ElevatorForm = ({ elevator, onSectionFocus }: { elevator: any, onSectionFocus: (section: string) => void }) => {
+  const { updateElevator, removeElevator, toggleElevatorCollapse } = useQuoteStore();
   const [pickerState, setPickerState] = useState({ isOpen: false, type: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    onChange(elevator.id, name, value);
+    updateElevator(elevator.id, name, value);
   };
 
   const handleFunctionChange = (funcId: number, key: string, value: any) => {
     const updatedFunctions = elevator.otherFunctions.map((func: any) => 
       func.id === funcId ? { ...func, [key]: value } : func
     );
-    onChange(elevator.id, 'otherFunctions', updatedFunctions);
+    updateElevator(elevator.id, 'otherFunctions', updatedFunctions);
   };
 
   const handleCarWallChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const wall = name.split('.')[1]; // 'left', 'right', or 'rear'
-    onChange(elevator.id, 'carWall', { ...elevator.carWall, [wall]: value });
+    const wall = name.split('.')[1];
+    updateElevator(elevator.id, 'carWall', { ...elevator.carWall, [wall]: value });
   };
 
   const handleCabinEffectFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +37,7 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
       const reader = new FileReader();
       reader.onloadend = () => {
         const newCabinEffect = { ...elevator.cabinEffect, [name]: reader.result as string };
-        onChange(elevator.id, 'cabinEffect', newCabinEffect);
+        updateElevator(elevator.id, 'cabinEffect', newCabinEffect);
       };
       reader.readAsDataURL(file);
     }
@@ -49,7 +51,7 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
         [property]: value,
       },
     };
-    onChange(elevator.id, 'cabinEffect', newCabinEffect);
+    updateElevator(elevator.id, 'cabinEffect', newCabinEffect);
   };
 
   const handleHybridFileChange = (fieldName: string, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,18 +68,14 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
   const addFunction = () => {
     const newFunction = { id: Date.now(), name: 'New Function', checked: false };
     const updatedFunctions = [...elevator.otherFunctions, newFunction];
-    onChange(elevator.id, 'otherFunctions', updatedFunctions);
+    updateElevator(elevator.id, 'otherFunctions', updatedFunctions);
   };
 
   const handleStyleSelect = (style: { id: string; name: string; previewImage: string }) => {
     let newCabinEffect;
     switch (pickerState.type) {
       case 'cabin':
-        newCabinEffect = {
-          ...elevator.cabinEffect,
-          cabinImage: style.previewImage,
-          ceiling: { type: 'text', value: style.id },
-        };
+        newCabinEffect = { ...elevator.cabinEffect, cabinImage: style.previewImage, ceiling: { type: 'text', value: style.id } };
         break;
       case 'cop':
         newCabinEffect = { ...elevator.cabinEffect, copImage: style.previewImage };
@@ -86,41 +84,27 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
         newCabinEffect = { ...elevator.cabinEffect, lopImage: style.previewImage };
         break;
       case 'landingDoor':
-        newCabinEffect = {
-          ...elevator.cabinEffect,
-          landingDoor: { type: 'image', value: style.previewImage },
-        };
+        newCabinEffect = { ...elevator.cabinEffect, landingDoor: { type: 'image', value: style.previewImage } };
         break;
       case 'handrail':
-        newCabinEffect = {
-          ...elevator.cabinEffect,
-          handrail: { type: 'image', value: style.previewImage },
-        };
+        newCabinEffect = { ...elevator.cabinEffect, handrail: { type: 'image', value: style.previewImage } };
         break;
       default:
         newCabinEffect = { ...elevator.cabinEffect };
     }
-    onChange(elevator.id, 'cabinEffect', newCabinEffect);
+    updateElevator(elevator.id, 'cabinEffect', newCabinEffect);
   };
 
-  const openPicker = (type: string) => {
-    setPickerState({ isOpen: true, type });
-  };
+  const openPicker = (type: string) => setPickerState({ isOpen: true, type });
 
   const getPickerProps = () => {
     switch (pickerState.type) {
-      case 'cabin':
-        return { styles: cabinStyles, title: 'Choose a Cabin Style' };
-      case 'cop':
-        return { styles: copStyles, title: 'Choose a COP Style' };
-      case 'lop':
-        return { styles: lopStyles, title: 'Choose a LOP Style' };
-      case 'landingDoor':
-        return { styles: landingDoorStyles, title: 'Choose a Landing Door Style' };
-      case 'handrail':
-        return { styles: handrailStyles, title: 'Choose a Handrail Style' };
-      default:
-        return { styles: [], title: '' };
+      case 'cabin': return { styles: cabinStyles, title: 'Choose a Cabin Style' };
+      case 'cop': return { styles: copStyles, title: 'Choose a COP Style' };
+      case 'lop': return { styles: lopStyles, title: 'Choose a LOP Style' };
+      case 'landingDoor': return { styles: landingDoorStyles, title: 'Choose a Landing Door Style' };
+      case 'handrail': return { styles: handrailStyles, title: 'Choose a Handrail Style' };
+      default: return { styles: [], title: '' };
     }
   };
 
@@ -130,10 +114,10 @@ const ElevatorForm = ({ elevator, onChange, onRemove, onToggleCollapse, onSectio
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">Elevator #L{elevator.id}</h3>
         <div>
-          <button onClick={() => onToggleCollapse(elevator.id)} className="px-3 py-1 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600 mr-2">
+          <button onClick={() => toggleElevatorCollapse(elevator.id)} className="px-3 py-1 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600 mr-2">
             {elevator.isCollapsed ? 'Expand' : 'Collapse'}
           </button>
-          <button onClick={() => onRemove(elevator.id)} className="px-3 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600">Remove</button>
+          <button onClick={() => removeElevator(elevator.id)} className="px-3 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600">Remove</button>
         </div>
       </div>
       {!elevator.isCollapsed && (

@@ -1,0 +1,104 @@
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { elevatorTemplate } from '@/data/elevatorTemplate';
+
+// Define types for the state
+interface Elevator {
+  id: number;
+  isCollapsed?: boolean;
+  // Add other elevator properties here from elevatorTemplate
+  [key: string]: any; // Allow flexible properties
+}
+
+interface QuoteState {
+  companyName: string;
+  quotationNo: string;
+  projectName: string;
+  quotationType: string;
+  quotationDate: string;
+  elevators: Elevator[];
+  freightDestination: string;
+  freightCost: number;
+  exchangeRate: number;
+  targetCurrency: string;
+  nextId: number;
+  setField: (field: keyof Omit<QuoteState, 'elevators' | 'nextId'>, value: any) => void;
+  addElevator: () => void;
+  removeElevator: (id: number) => void;
+  updateElevator: (id: number, name: string, value: any) => void;
+  toggleElevatorCollapse: (id: number) => void;
+  resetToDefaults: () => void;
+  fetchExchangeRate: () => void;
+  importState: (newState: Partial<QuoteState>) => void;
+}
+
+const initialState = {
+  companyName: 'Your Company Name',
+  quotationNo: 'Q-2024001',
+  projectName: 'Sample Project',
+  quotationType: 'FOB',
+  quotationDate: new Date().toLocaleDateString('en-CA'),
+  elevators: [{...elevatorTemplate, id: 1}],
+  freightDestination: 'e.g., Port of Shanghai',
+  freightCost: 600,
+  exchangeRate: 1,
+  targetCurrency: 'USD',
+  nextId: 2,
+};
+
+export const useQuoteStore = create<QuoteState>()(
+  persist(
+    (set, get) => ({
+      ...initialState,
+      
+      // Actions
+      setField: (field, value) => set({ [field]: value }),
+
+      addElevator: () => set((state) => ({
+        elevators: [...state.elevators, { ...elevatorTemplate, id: state.nextId }],
+        nextId: state.nextId + 1,
+      })),
+
+      removeElevator: (id) => set((state) => ({
+        elevators: state.elevators.filter(elevator => elevator.id !== id),
+      })),
+
+      updateElevator: (id, name, value) => set((state) => ({
+        elevators: state.elevators.map(elevator => 
+          elevator.id === id ? { ...elevator, [name]: value } : elevator
+        ),
+      })),
+
+      toggleElevatorCollapse: (id) => set((state) => ({
+        elevators: state.elevators.map(elevator =>
+          elevator.id === id ? { ...elevator, isCollapsed: !elevator.isCollapsed } : elevator
+        ),
+      })),
+
+      resetToDefaults: () => set(initialState),
+
+      fetchExchangeRate: async () => {
+        const { targetCurrency } = get();
+        if (targetCurrency && targetCurrency !== 'USD' && targetCurrency !== '-') {
+          try {
+            const response = await fetch(`https://open.er-api.com/v6/latest/USD`);
+            const data = await response.json();
+            if (data.rates && data.rates[targetCurrency]) {
+              set({ exchangeRate: data.rates[targetCurrency] });
+            }
+          } catch (error) {
+            console.error("Error fetching exchange rate:", error);
+          }
+        } else {
+          set({ exchangeRate: 1 });
+        }
+      },
+
+      importState: (newState) => set(newState),
+    }),
+    {
+      name: 'quote-storage', // name of the item in the storage (must be unique)
+      storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
+    }
+  )
+);

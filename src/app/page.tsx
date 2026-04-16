@@ -3,20 +3,77 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import Header from '@/components/Header';
 import ElevatorForm from '@/components/ElevatorForm';
-import { elevatorTemplate } from '@/data/elevatorTemplate';
+import { useQuoteStore } from '@/store/useQuoteStore';
 
 const Quote = () => {
-  const [companyName, setCompanyName] = useState('Your Company Name');
-  const [quotationNo, setQuotationNo] = useState('Q-2024001');
-  const [projectName, setProjectName] = useState('Sample Project');
-  const [quotationType, setQuotationType] = useState('FOB');
-  const [quotationDate, setQuotationDate] = useState('');
-  const [elevators, setElevators] = useState([{...elevatorTemplate, id: 1}]);
-  const [freightDestination, setFreightDestination] = useState('e.g., Port of Shanghai');
-  const [freightCost, setFreightCost] = useState(600);
-  const [exchangeRate, setExchangeRate] = useState(1430);
-  const [targetCurrency, setTargetCurrency] = useState('USD');
+  const {
+    companyName,
+    quotationNo,
+    projectName,
+    quotationType,
+    quotationDate,
+    elevators,
+    freightDestination,
+    freightCost,
+    exchangeRate,
+    targetCurrency,
+    setField,
+    addElevator,
+    resetToDefaults,
+    fetchExchangeRate,
+    importState,
+  } = useQuoteStore();
+
   const [focusedSection, setFocusedSection] = useState<string>('');
+  const [isClient, setIsClient] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const handleExport = () => {
+    const state = useQuoteStore.getState();
+    const jsonString = JSON.stringify(state, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `quote-draft-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (window.confirm('Are you sure you want to import this file? This will overwrite your current draft.')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target?.result;
+          if (typeof text === 'string') {
+            const newState = JSON.parse(text);
+            importState(newState);
+            alert('Draft imported successfully!');
+          }
+        } catch (error) {
+          console.error("Failed to parse JSON file:", error);
+          alert('Failed to import draft. The file may be corrupted or in the wrong format.');
+        }
+      };
+      reader.readAsText(file);
+    }
+    // Reset file input to allow importing the same file again
+    event.target.value = '';
+  };
 
   const renderSpec = (label: string, value: any) => (
     <div key={label} className="flex justify-between py-1 px-2 border-b last:border-b-0 hover:bg-gray-50">
@@ -26,7 +83,6 @@ const Quote = () => {
   );
 
   const componentRef = useRef(null);
-  const nextId = useRef(2);
 
   useEffect(() => {
     if (focusedSection) {
@@ -37,46 +93,9 @@ const Quote = () => {
     }
   }, [focusedSection]);
 
-  const addElevator = () => {
-    const newId = nextId.current;
-    setElevators([...elevators, { ...elevatorTemplate, id: newId }]);
-    nextId.current++;
-  };
-
-  const removeElevator = (id: number) => {
-    setElevators(elevators.filter(elevator => elevator.id !== id));
-  };
-
-  const handleElevatorChange = (id: number, name: string, value: any) => {
-    setElevators(elevators.map(elevator => 
-      elevator.id === id ? { ...elevator, [name]: value } : elevator
-    ));
-  };
-
-  const toggleElevatorCollapse = (id: number) => {
-    setElevators(elevators.map(elevator =>
-      elevator.id === id ? { ...elevator, isCollapsed: !elevator.isCollapsed } : elevator
-    ));
-  };
-
   useEffect(() => {
-    setQuotationDate(new Date().toLocaleDateString('en-CA'));
-  }, []);
-
-  useEffect(() => {
-    if (targetCurrency && targetCurrency !== 'USD' && targetCurrency !== '-') {
-      fetch(`https://open.er-api.com/v6/latest/USD`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.rates && data.rates[targetCurrency]) {
-            setExchangeRate(data.rates[targetCurrency]);
-          }
-        })
-        .catch(error => console.error("Error fetching exchange rate:", error));
-    } else {
-      setExchangeRate(1);
-    }
-  }, [targetCurrency]);
+    fetchExchangeRate();
+  }, [targetCurrency, fetchExchangeRate]);
 
   const grandTotal = useMemo(() => {
     const elevatorsTotal = elevators.reduce((total, elevator) => total + (elevator.unitPrice * elevator.qty), 0);
@@ -87,20 +106,44 @@ const Quote = () => {
     return grandTotal * exchangeRate;
   }, [grandTotal, exchangeRate]);
 
+  if (!isClient) {
+    return null; // Or a loading spinner
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="p-4">
         <div className="flex flex-col md:flex-row md:space-x-4">
           {/* Left Side - Inputs */}
           <div className="w-full md:w-1/2 p-4 bg-white rounded-lg shadow-md no-print">
-            <h2 className="text-xl font-semibold mb-4">Details<span className="block text-base font-normal text-gray-500">详细信息</span></h2>
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="text-xl font-semibold">Details<span className="block text-base font-normal text-gray-500">详细信息</span></h2>
+              <div className="flex flex-col space-y-2 items-end">
+                  <button onClick={() => window.confirm('Are you sure you want to start a new quote? All unsaved changes will be lost.') && resetToDefaults()} className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm w-32">
+                    Start New Quote
+                  </button>
+                  <button onClick={handleExport} className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-sm w-32">
+                    Export Draft
+                  </button>
+                  <button onClick={handleImportClick} className="p-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 text-sm w-32">
+                    Import Draft
+                  </button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    className="hidden"
+                    accept=".json"
+                  />
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Company Name<span className="block text-xs text-gray-500">公司名称</span></label>
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
+                  onChange={(e) => setField('companyName', e.target.value)}
                 />
               </div>
               <div>
@@ -108,7 +151,7 @@ const Quote = () => {
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={quotationNo}
-                  onChange={(e) => setQuotationNo(e.target.value)}
+                  onChange={(e) => setField('quotationNo', e.target.value)}
                 />
               </div>
               <div className="sm:col-span-2">
@@ -116,7 +159,7 @@ const Quote = () => {
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={projectName}
-                  onChange={(e) => setProjectName(e.target.value)}
+                  onChange={(e) => setField('projectName', e.target.value)}
                 />
               </div>
               <div>
@@ -124,7 +167,7 @@ const Quote = () => {
                 <select
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={quotationType}
-                  onChange={(e) => setQuotationType(e.target.value)}
+                  onChange={(e) => setField('quotationType', e.target.value)}
                 >
                   <option>EXW</option>
                   <option>FOB</option>
@@ -140,7 +183,7 @@ const Quote = () => {
                 <input
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={freightDestination}
-                  onChange={(e) => setFreightDestination(e.target.value)}
+                  onChange={(e) => setField('freightDestination', e.target.value)}
                 />
               </div>
               <div className="sm:col-span-2">
@@ -149,7 +192,7 @@ const Quote = () => {
                   type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={freightCost}
-                  onChange={(e) => setFreightCost(Number(e.target.value))}
+                  onChange={(e) => setField('freightCost', Number(e.target.value))}
                 />
               </div>
               <div>
@@ -157,7 +200,7 @@ const Quote = () => {
                 <select
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={targetCurrency}
-                  onChange={(e) => setTargetCurrency(e.target.value)}
+                  onChange={(e) => setField('targetCurrency', e.target.value)}
                 >
                   <option value="-">-</option>
                   <option>NGN</option>
@@ -172,13 +215,13 @@ const Quote = () => {
                   type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={exchangeRate}
-                  onChange={(e) => setExchangeRate(Number(e.target.value))}
+                  onChange={(e) => setField('exchangeRate', Number(e.target.value))}
                 />
               </div>
             </div>
 
-            {elevators.map((elevator, index) => (
-              <ElevatorForm key={elevator.id} elevator={elevator} onChange={handleElevatorChange} onRemove={removeElevator} onToggleCollapse={toggleElevatorCollapse} onSectionFocus={(section: string) => setFocusedSection(`${section}-${elevator.id}`)} />
+            {elevators.map((elevator) => (
+              <ElevatorForm key={elevator.id} elevator={elevator} onSectionFocus={(section: string) => setFocusedSection(`${section}-${elevator.id}`)} />
             ))}
             <button onClick={addElevator} className="mt-4 w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600">Add Elevator</button>
           </div>
