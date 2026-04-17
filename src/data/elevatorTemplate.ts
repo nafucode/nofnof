@@ -9,7 +9,7 @@ export const elevatorTemplate = {
   speed: 1.75,
   floorsStops: '4/4/4',
   controlSystem: 'Simplex',
-  driveSystem: 'VVVF',
+  driveSystem: 'Gearless motor, with VVVF control, Mona drive',
   servingFloors: 'G-1F-2F-3F',
   entrances: 'Single Entrance',
   powerVoltage: '380V-3 phase',

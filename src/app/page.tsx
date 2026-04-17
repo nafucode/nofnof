@@ -17,6 +17,10 @@ const Quote = () => {
     freightCost,
     exchangeRate,
     targetCurrency,
+    deliveryDays,
+    paymentTerm,
+    warrantyMonths,
+    priceValidityDays,
     setField,
     addElevator,
     resetToDefaults,
@@ -99,12 +103,29 @@ const Quote = () => {
 
   const grandTotal = useMemo(() => {
     const elevatorsTotal = elevators.reduce((total, elevator) => total + (elevator.unitPrice * elevator.qty), 0);
-    return elevatorsTotal + freightCost;
+    return elevatorsTotal + Number(freightCost);
   }, [elevators, freightCost]);
 
   const convertedTotal = useMemo(() => {
-    return grandTotal * exchangeRate;
+    return grandTotal * Number(exchangeRate);
   }, [grandTotal, exchangeRate]);
+
+  const validityUntilDate = useMemo(() => {
+    if (!quotationDate || !priceValidityDays || Number(priceValidityDays) <= 0) {
+      return '';
+    }
+    try {
+      const startDate = new Date(quotationDate);
+      // Check if startDate is a valid date
+      if (isNaN(startDate.getTime())) {
+        return '';
+      }
+      startDate.setDate(startDate.getDate() + Number(priceValidityDays));
+      return startDate.toLocaleDateString('en-CA'); // Format as YYYY-MM-DD
+    } catch (e) {
+      return ''; // Return empty string if date is invalid
+    }
+  }, [quotationDate, priceValidityDays]);
 
   if (!isClient) {
     return null; // Or a loading spinner
@@ -192,7 +213,7 @@ const Quote = () => {
                   type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={freightCost}
-                  onChange={(e) => setField('freightCost', Number(e.target.value))}
+                  onChange={(e) => setField('freightCost', e.target.value)}
                 />
               </div>
               <div>
@@ -215,7 +236,46 @@ const Quote = () => {
                   type="number"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
                   value={exchangeRate}
-                  onChange={(e) => setField('exchangeRate', Number(e.target.value))}
+                  onChange={(e) => setField('exchangeRate', e.target.value)}
+                />
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold mt-6 mb-4 border-t pt-4">Terms & Validity<span className="block text-sm font-normal text-gray-500">条款与有效期</span></h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Delivery (days)<span className="block text-xs text-gray-500">交货期 (天)</span></label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                  value={deliveryDays}
+                  onChange={(e) => setField('deliveryDays', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Warranty (months)<span className="block text-xs text-gray-500">质保期 (月)</span></label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                  value={warrantyMonths}
+                  onChange={(e) => setField('warrantyMonths', e.target.value)}
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Payment Term<span className="block text-xs text-gray-500">付款方式</span></label>
+                <input
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                  value={paymentTerm}
+                  onChange={(e) => setField('paymentTerm', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Price Validity (days)<span className="block text-xs text-gray-500">价格有效期 (天)</span></label>
+                <input
+                  type="number"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                  value={priceValidityDays}
+                  onChange={(e) => setField('priceValidityDays', e.target.value)}
                 />
               </div>
             </div>
@@ -283,6 +343,13 @@ const Quote = () => {
                       )}
                     </tbody>
                   </table>
+                </div>
+
+                <div className="mt-4 pt-4 border-t text-sm space-y-1">
+                  <p><span className="font-semibold">I. Delivery:</span> {deliveryDays} days after receive down payment and confirmed drawing.</p>
+                  <p><span className="font-semibold">II. Payment term:</span> {paymentTerm}</p>
+                  <p><span className="font-semibold">III. Warranty:</span> {warrantyMonths} months since goods arrival at destination port.</p>
+                  <p><span className="font-semibold">IV. Price validity:</span> {priceValidityDays} days {validityUntilDate && `(until ${validityUntilDate})`}</p>
                 </div>
 
                 <div className="mt-4 pt-4 border-t">

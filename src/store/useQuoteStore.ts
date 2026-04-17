@@ -18,10 +18,17 @@ interface QuoteState {
   quotationDate: string;
   elevators: Elevator[];
   freightDestination: string;
-  freightCost: number;
-  exchangeRate: number;
+  freightCost: number | string;
+  exchangeRate: number | string;
   targetCurrency: string;
   nextId: number;
+
+  // New fields for terms
+  deliveryDays: number | string;
+  paymentTerm: string;
+  warrantyMonths: number | string;
+  priceValidityDays: number | string;
+
   setField: (field: keyof Omit<QuoteState, 'elevators' | 'nextId'>, value: any) => void;
   addElevator: () => void;
   removeElevator: (id: number) => void;
@@ -44,6 +51,12 @@ const initialState = {
   exchangeRate: 1,
   targetCurrency: 'USD',
   nextId: 2,
+
+  // Initial values for terms
+  deliveryDays: 35,
+  paymentTerm: '30% T/T in advance, 70% before shipment',
+  warrantyMonths: 12,
+  priceValidityDays: 30,
 };
 
 export const useQuoteStore = create<QuoteState>()(
