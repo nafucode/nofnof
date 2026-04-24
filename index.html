@@ -36,8 +36,12 @@ nav ul a:hover{color:#fff}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden;background:var(--bg)}
 .hero-accent-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,var(--accent),transparent)}
 .hero-left{padding:0 5% 0 5%;position:relative;z-index:1}
-.hero-right{height:100vh;overflow:hidden}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-right{height:100vh;overflow:hidden;position:relative}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease}
+.hero-slide.active{opacity:1}
+.hero-slide-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:10}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.45);cursor:pointer;transition:background 0.3s,transform 0.3s}
+.dot.active{background:#fff;transform:scale(1.2)}
 .eyebrow{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem;font-weight:500}
 .eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--accent)}
 h1{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:700;line-height:1.1;color:var(--text);margin-bottom:1.25rem;letter-spacing:-0.02em}
@@ -188,7 +192,7 @@ footer small{font-size:0.72rem;color:var(--muted2);letter-spacing:0.06em;text-al
 <body>
 
 <nav>
-  <div class="logo">NOF<span>NOF</span>.COM</div>
+  <div class="logo"><img src="/icon.png" alt="NofNof" style="height:32px;width:auto;vertical-align:middle;margin-right:0.5rem;filter:brightness(0) invert(1)">NOF<span>NOF</span>.COM</div>
   <ul>
     <li><a href="#products">Products</a></li>
     <li><a href="#process">Process</a></li>
@@ -224,7 +228,14 @@ footer small{font-size:0.72rem;color:var(--muted2);letter-spacing:0.06em;text-al
     </div>
   </div>
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80" alt="Modern building" loading="eager">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=900&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=900&q=80')"></div>
+    <div class="hero-slide-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
   </div>
 </section>
 
@@ -544,6 +555,20 @@ footer small{font-size:0.72rem;color:var(--muted2);letter-spacing:0.06em;text-al
 </footer>
 
 <script>
+// Hero slideshow
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+let current = 0;
+function goTo(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+}
+dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); clearInterval(timer); timer = setInterval(() => goTo(current + 1), 4000); }));
+let timer = setInterval(() => goTo(current + 1), 4000);
+
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) {
