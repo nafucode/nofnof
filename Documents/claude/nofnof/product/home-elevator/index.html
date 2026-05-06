@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Elevator – XINFUJI Elevator & Escalator</title>
+<meta name="description" content="XINFUJI home elevators — Panoramic, Casa and Platform series. Space-saving, ready-to-install residential lifts with smart control. Factory-direct from China.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#0d1117;
+  --dark2:#161b22;
+  --gold:#c9a84c;
+  --gold2:#e6c87a;
+  --blue:#1565C0;
+  --blue2:#1976D2;
+  --blue-light:#E3F0FF;
+  --text:#1a1a2a;
+  --muted:#5c6370;
+  --border:#e0e4ea;
+  --white:#fff;
+  --bg:#f7f8fa;
+  --bg2:#f0f2f5;
+  --wa:#25D366;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:#111318;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo img{height:44px;display:block}
+.nav-menu{list-style:none;display:flex;align-items:center;gap:0}
+.nav-menu>li{position:relative}
+.nav-menu>li>a{display:block;text-decoration:none;color:rgba(255,255,255,0.78);font-size:0.78rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:0.55rem 0.85rem;transition:color 0.2s}
+.nav-menu>li>a:hover,.nav-menu>li.active>a{color:#fff}
+.nav-menu>li.has-drop>a::after{content:'▾';font-size:0.6rem;margin-left:0.3rem;opacity:0.6}
+.nav-drop{display:none;position:absolute;top:100%;left:0;background:#1a1d24;border:1px solid rgba(255,255,255,0.08);border-top:2px solid var(--blue);min-width:200px;padding:0.5rem 0;border-radius:0 0 4px 4px;box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.nav-drop li a{display:block;padding:0.6rem 1.1rem;font-size:0.77rem;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s,background 0.2s;white-space:nowrap}
+.nav-drop li a:hover{color:#fff;background:rgba(255,255,255,0.05)}
+.nav-drop li a.current{color:var(--gold2)}
+.nav-menu>li:hover .nav-drop{display:block}
+.btn-quote{background:var(--blue);color:#fff!important;padding:0.5rem 1.3rem;border-radius:3px;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;transition:background 0.2s;margin-left:0.5rem}
+.btn-quote:hover{background:var(--blue2)}
+
+/* BREADCRUMB */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--border);padding:0.7rem 5%;display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb-sep{opacity:0.4}
+
+/* HERO */
+@keyframes heroShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes silkSheen{
+  0%{transform:translateX(-120%) skewX(-20deg);opacity:0}
+  20%{opacity:1}
+  80%{opacity:1}
+  100%{transform:translateX(220%) skewX(-20deg);opacity:0}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero{background:linear-gradient(-45deg,#c2cad8,#0d2a5a,#1565c0,#2e0b5e,#0a1a3a,#9aa4b8);background-size:400% 400%;animation:heroShift 32s ease-in-out infinite;padding:5rem 5% 4.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,0.06) 0%,transparent 65%)}
+.hero::after{content:'';position:absolute;top:0;left:0;width:35%;height:100%;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.06) 50%,transparent 70%);animation:silkSheen 8s ease-in-out infinite;pointer-events:none}
+.hero-inner{max-width:1440px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{font-size:0.68rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem}
+.hero-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.hero h1{font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:700;color:#fff;line-height:1.12;letter-spacing:-0.02em;margin-bottom:1.1rem;animation:fadeUp 0.7s ease both}
+.hero h1 span{color:var(--gold2);font-weight:300}
+.hero-desc{font-size:0.92rem;color:rgba(255,255,255,0.55);max-width:580px;line-height:1.9;margin-bottom:2.2rem;animation:fadeUp 0.7s 0.15s ease both}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.7s 0.25s ease both}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--blue);color:#fff;text-decoration:none;padding:0.85rem 1.9rem;border-radius:3px;font-size:0.88rem;font-weight:600;transition:background 0.2s,transform 0.15s}
+.btn-primary:hover{background:var(--blue2);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;border:1px solid rgba(255,255,255,0.28);color:rgba(255,255,255,0.82);text-decoration:none;padding:0.85rem 1.9rem;border-radius:3px;font-size:0.88rem;transition:border-color 0.2s,background 0.2s}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.07)}
+.hero-stats{display:flex;gap:3rem;margin-top:3rem;padding-top:2.2rem;border-top:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;animation:fadeUp 0.7s 0.35s ease both}
+.stat-num{font-size:2rem;font-weight:700;color:var(--gold2);line-height:1}
+.stat-label{font-size:0.67rem;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.3rem}
+
+/* SECTIONS */
+.section{padding:5rem 5%}
+.section-alt{background:#fff}
+.inner{max-width:1300px;margin:0 auto}
+.section-label{font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
+.section-label::before{content:'';display:block;width:16px;height:2px;background:var(--blue)}
+.section-header{max-width:620px;margin:0 auto 3.5rem;text-align:center}
+.section-header .section-label{justify-content:center}
+.section-header h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--text);margin-bottom:0.65rem;line-height:1.2}
+.section-header p{font-size:0.9rem;color:var(--muted);line-height:1.85}
+
+/* SERIES CARDS */
+.series-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.series-card{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:box-shadow 0.25s,transform 0.2s;display:flex;flex-direction:column}
+.series-card:hover{box-shadow:0 12px 40px rgba(21,101,192,0.12);transform:translateY(-4px)}
+.series-img{width:100%;height:300px;object-fit:cover;display:block;background:var(--bg2);transition:object-fit 0s,height 0.35s ease,object-position 0.35s ease}
+.series-card:hover .series-img{object-fit:contain;height:380px}
+.series-body{padding:1.75rem;flex:1;display:flex;flex-direction:column}
+.series-tag{display:inline-block;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.22rem 0.65rem;border-radius:2px;margin-bottom:0.85rem}
+.tag-panoramic{background:rgba(201,168,76,0.12);color:#8a6520}
+.tag-casa{background:rgba(21,101,192,0.1);color:var(--blue)}
+.tag-platform{background:rgba(46,11,94,0.1);color:#5c2d91}
+.series-body h3{font-size:1.12rem;font-weight:700;color:var(--text);margin-bottom:0.5rem}
+.series-body p{font-size:0.84rem;color:var(--muted);line-height:1.85;margin-bottom:1.25rem;flex:1}
+.series-specs{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.4rem}
+.spec-chip{font-size:0.68rem;background:var(--bg2);color:var(--muted);padding:0.25rem 0.6rem;border-radius:2px;font-weight:500}
+.series-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:600;color:var(--blue);text-decoration:none;transition:gap 0.2s}
+.series-link:hover{gap:0.7rem}
+.series-link::after{content:'→'}
+
+/* TECHNOLOGY */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2rem 1.75rem;transition:border-color 0.25s,box-shadow 0.25s}
+.tech-card:hover{border-color:var(--blue);box-shadow:0 6px 24px rgba(21,101,192,0.09)}
+.tech-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:1.5rem}
+.tech-card h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.6rem;line-height:1.3}
+.tech-card p{font-size:0.83rem;color:var(--muted);line-height:1.85;margin-bottom:1rem}
+.tech-points{list-style:none;display:flex;flex-direction:column;gap:0.4rem}
+.tech-points li{font-size:0.8rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.5rem}
+.tech-points li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0}
+
+/* SPECS TABLE */
+.specs-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+table{width:100%;border-collapse:collapse;font-size:0.85rem}
+thead{background:linear-gradient(135deg,#0d2a5a,var(--blue))}
+thead th{padding:1rem 1.25rem;text-align:left;font-weight:600;font-size:0.76rem;letter-spacing:0.07em;text-transform:uppercase;color:#fff}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:nth-child(even){background:var(--bg)}
+td{padding:0.9rem 1.25rem;color:var(--text)}
+td:first-child{font-weight:600;color:var(--muted);font-size:0.78rem;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap}
+
+/* SMART FEATURES */
+.smart-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.smart-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.6rem 1.25rem;text-align:center;transition:border-color 0.2s,transform 0.2s}
+.smart-card:hover{border-color:var(--blue);transform:translateY(-3px)}
+.smart-icon{font-size:2rem;margin-bottom:0.9rem}
+.smart-card h4{font-size:0.88rem;font-weight:700;color:var(--text);margin-bottom:0.35rem}
+.smart-card p{font-size:0.76rem;color:var(--muted);line-height:1.7}
+
+/* SERVICE */
+.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.svc-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.75rem 1.5rem;text-align:center;transition:border-color 0.2s,transform 0.2s}
+.svc-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.svc-icon{font-size:1.9rem;margin-bottom:0.85rem}
+.svc-card h4{font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem}
+.svc-card p{font-size:0.77rem;color:var(--muted);line-height:1.75}
+
+/* CTA */
+.cta-section{background:linear-gradient(-45deg,#0d2a5a,#0a1a3a,#1565c0,#0d1a3a);background-size:300% 300%;animation:heroShift 20s ease-in-out infinite;padding:5rem 5%;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,0.015) 0,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 36px)}
+.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-section h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#fff;margin-bottom:0.9rem}
+.cta-section p{font-size:0.95rem;color:rgba(255,255,255,0.6);margin-bottom:2rem;line-height:1.85}
+.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-wa{display:inline-flex;align-items:center;gap:0.6rem;background:var(--wa);color:#fff;text-decoration:none;padding:0.9rem 2rem;border-radius:3px;font-size:0.9rem;font-weight:600;transition:opacity 0.2s,transform 0.15s}
+.btn-wa:hover{opacity:0.9;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:var(--dark2);color:rgba(255,255,255,0.45);text-align:center;padding:2rem 5%;font-size:0.78rem;border-top:1px solid rgba(255,255,255,0.07)}
+footer a{color:rgba(255,255,255,0.5);text-decoration:none}
+footer a:hover{color:#fff}
+
+/* WA FLOAT - matches HT Click to Chat plugin */
+@keyframes ht_ctc_an_pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5)}70%{box-shadow:0 0 0 12px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+#ht-ctc-chat{position:fixed;bottom:15px;right:15px;z-index:99999999;cursor:pointer;display:none}
+#ht-ctc-chat .ctc_s3_1{display:flex;justify-content:center;align-items:center}
+#ht-ctc-chat .ht_ctc_padding{background-color:#25D366;padding:16px;border-radius:50%;box-shadow:0 0 11px rgba(0,0,0,.5);animation:ht_ctc_an_pulse 2s infinite}
+#ht-ctc-chat .ctc_cta_stick{padding:0 16px;line-height:1.6;font-size:15px;background-color:#25d366;color:#fff;border-radius:10px;margin:0 10px;display:none;white-space:nowrap}
+#ht-ctc-chat:hover .ctc_cta_stick{display:block}
+#ht-ctc-chat:hover .ht_ctc_padding{box-shadow:0 0 11px rgba(0,0,0,.5)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .series-grid{grid-template-columns:repeat(2,1fr)}
+  .tech-grid{grid-template-columns:repeat(2,1fr)}
+  .smart-grid{grid-template-columns:repeat(2,1fr)}
+  .service-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-menu{display:none}
+  .series-grid{grid-template-columns:1fr}
+  .tech-grid{grid-template-columns:1fr}
+  .hero{padding:3.5rem 5% 3rem}
+  .hero-stats{gap:1.8rem}
+  .stat-num{font-size:1.6rem}
+  .cta-actions{flex-direction:column;align-items:center}
+}
+@media(max-width:480px){
+  .smart-grid{grid-template-columns:repeat(2,1fr)}
+  .service-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://xinfuji.com" class="nav-logo">
+    <img src="https://xinfuji.com/wp-content/uploads/white-logo-120x72.png" alt="XINFUJI">
+  </a>
+  <ul class="nav-menu">
+    <li><a href="https://xinfuji.com/">Home</a></li>
+    <li class="has-drop active">
+      <a href="https://xinfuji.com/product/">Product</a>
+      <ul class="nav-drop">
+        <li><a href="https://xinfuji.com/product/passenger-elevator/">Passenger Elevator</a></li>
+        <li><a href="https://xinfuji.com/product/home-elevator/" class="current">Home Elevator</a></li>
+        <li><a href="https://xinfuji.com/product/freight-elevator/">Freight &amp; Cargo</a></li>
+        <li><a href="https://xinfuji.com/product/escalator-and-moving-walker/">Escalators</a></li>
+        <li><a href="https://xinfuji.com/decoration/">Decoration</a></li>
+      </ul>
+    </li>
+    <li><a href="https://xinfuji.com/blog/">Blog</a></li>
+    <li><a href="https://xinfuji.com/downloads/">Downloads</a></li>
+    <li><a href="https://xinfuji.com/projects/">Projects</a></li>
+    <li><a href="https://xinfuji.com/modernization-solution/">Modernization</a></li>
+    <li class="has-drop">
+      <a href="https://xinfuji.com/contact/">Contact</a>
+      <ul class="nav-drop">
+        <li><a href="https://xinfuji.com/partner-with-us/">Partner with Us</a></li>
+      </ul>
+    </li>
+  </ul>
+  <a href="https://xinfuji.com/contact/" class="btn-quote">Quote Now</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="https://xinfuji.com">Home</a>
+  <span class="breadcrumb-sep">/</span>
+  <a href="https://xinfuji.com/product/">Product</a>
+  <span class="breadcrumb-sep">/</span>
+  <span>Home Elevator</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:absolute;inset:0;background-image:url('https://xinfuji.com/wp-content/uploads/Home-elevator3.png');background-size:cover;background-position:center right;opacity:0.12;z-index:0"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Residential Elevator Solutions</div>
+    <h1>Home Elevator<br><span>for Every Space</span></h1>
+    <p class="hero-desc">Space-saving, ready-to-install elevator solutions with minimal structural impact. From transparent panoramic lifts to compact platform models — tailored to your home, your style.</p>
+    <div class="hero-actions">
+      <a href="https://xinfuji.com/contact/" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Get a Quote
+      </a>
+      <a href="https://wa.me/8618018599919?text=Hi%2C%20I%27m%20interested%20in%20XINFUJI%20Home%20Elevator" target="_blank" class="btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.849L.054 23.25a.75.75 0 00.916.99l5.549-1.479A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.741 9.741 0 01-4.964-1.356l-.356-.213-3.694.984.993-3.606-.234-.372A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Product Series</div>
+      </div>
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div>
+        <div class="stat-num">CE</div>
+        <div class="stat-label">Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERIES -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-label">Product Lines</div>
+      <h2>Choose Your Series</h2>
+      <p>Three distinct lines designed to suit different homes, budgets, and aesthetic preferences — each engineered for safety, quiet operation, and long-term reliability.</p>
+    </div>
+    <div class="series-grid">
+
+      <!-- Home Lift (formerly Casa) -->
+      <div class="series-card">
+        <img class="series-img" src="https://xinfuji.com/wp-content/uploads/%E6%88%AA%E5%B1%8F2026-05-06-21.27.06.png" alt="Home Lift">
+        <div class="series-body">
+          <span class="series-tag tag-casa">Home Lift</span>
+          <h3>Home Lift</h3>
+          <p>Compact traction home elevator with minimal structural impact — fits brick, concrete, aluminium or steel shafts. Installable in days, quiet and energy-efficient.</p>
+          <div class="series-specs">
+            <span class="spec-chip">Load: 400 / 450 / 630 kg</span>
+            <span class="spec-chip">Speed: 0.4–1.0 m/s</span>
+            <span class="spec-chip">Traction Motor, VVVF</span>
+            <span class="spec-chip">Up to 8 Stops</span>
+          </div>
+          <a href="https://xinfuji.com/contact/" class="series-link">Request Catalogue</a>
+        </div>
+      </div>
+
+      <!-- Panoramic -->
+      <div class="series-card">
+        <img class="series-img" src="https://xinfuji.com/wp-content/uploads/%E6%88%AA%E5%B1%8F2026-05-06-21.31.03.png" alt="Panoramic Home Elevator">
+        <div class="series-body">
+          <span class="series-tag tag-panoramic">Panoramic Series</span>
+          <h3>Panoramic Villa Elevator</h3>
+          <p>Floor-to-ceiling glass panels turn your lift into a design statement. Ideal for open-plan villas and residences where aesthetics are as important as function.</p>
+          <div class="series-specs">
+            <span class="spec-chip">Load: 400 / 450 / 630 kg</span>
+            <span class="spec-chip">Speed: 0.4–1.0 m/s</span>
+            <span class="spec-chip">Aluminium &amp; Glass Shaft</span>
+            <span class="spec-chip">Up to 8 Stops</span>
+          </div>
+          <a href="https://xinfuji.com/contact/" class="series-link">Request Catalogue</a>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div class="series-card">
+        <img class="series-img" src="https://xinfuji.com/wp-content/uploads/%E6%88%AA%E5%B1%8F2026-05-06-21.29.59.png" alt="Platform Home Elevator">
+        <div class="series-body">
+          <span class="series-tag tag-platform">Platform Series</span>
+          <h3>Platform Accessibility Lift</h3>
+          <p>Traction-driven platform lift for homes where a traditional shaft isn't feasible. Barrier-free access with aluminium alloy and glass enclosure.</p>
+          <div class="series-specs">
+            <span class="spec-chip">Load: 300–400 kg</span>
+            <span class="spec-chip">Speed: 0.3 m/s</span>
+            <span class="spec-chip">Traction Motor, VVVF</span>
+            <span class="spec-chip">Up to 6 Stops</span>
+          </div>
+          <a href="https://xinfuji.com/contact/" class="series-link">Request Catalogue</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-label">Core Technology</div>
+      <h2>Built Different</h2>
+      <p>Every XINFUJI home elevator is engineered around three pillars — structural efficiency, drive precision, and intelligent control.</p>
+    </div>
+    <div class="tech-grid">
+
+      <div class="tech-card">
+        <img src="https://xinfuji.com/wp-content/uploads/%E6%88%AA%E5%B1%8F2026-05-06-21.34.12.png" alt="Aluminum Alloy Shaft Frame" style="width:100%;height:180px;object-fit:cover;border-radius:6px;margin-bottom:1.25rem">
+        <h3>Aluminum Alloy Shaft Frame</h3>
+        <p>Industrial-grade aluminum alloy frame keeps the shaft footprint minimal while maintaining structural rigidity. Concealed joints and matching door panels deliver a seamless, built-in look.</p>
+        <ul class="tech-points">
+          <li>Compact design — fits existing staircases</li>
+          <li>No load-bearing wall modification needed</li>
+          <li>Concealed wiring &amp; piping channels</li>
+          <li>Powder-coated or anodised finish options</li>
+        </ul>
+      </div>
+
+      <div class="tech-card">
+        <img src="https://xinfuji.com/wp-content/uploads/Traction.png" alt="Steel Belt Traction" style="width:100%;height:160px;object-fit:contain;background:#f0f4f8;border-radius:6px;margin-bottom:1.25rem">
+        <h3>Steel Belt PMSM Gearless Traction</h3>
+        <p>A permanent magnet synchronous motor paired with a flat steel belt drive delivers whisper-quiet operation, precise levelling, and energy efficiency far beyond traditional cable systems.</p>
+        <ul class="tech-points">
+          <li>100 mm flat belt — ultra-compact machine room</li>
+          <li>Energy class A — low power consumption</li>
+          <li>Near-silent operation (&lt; 45 dB)</li>
+          <li>Imported precision bearings, long service life</li>
+        </ul>
+      </div>
+
+      <div class="tech-card">
+        <img src="https://xinfuji.com/wp-content/uploads/cn-enta_villa-4_image_w900_h550.webp" alt="Smart Control System" style="width:100%;height:180px;object-fit:cover;border-radius:6px;margin-bottom:1.25rem">
+        <h3>Smart Control System <span style="font-size:0.7rem;font-weight:500;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Optional</span></h3>
+        <p>A suite of intelligent features transforms the riding experience and gives homeowners complete control over access, comfort, and safety — all from a single panel or smartphone.</p>
+        <ul class="tech-points">
+          <li>Facial recognition &amp; fingerprint access</li>
+          <li>Voice command operation</li>
+          <li>Extended occupancy &amp; door-hold alerts</li>
+          <li>Built-in air purification system</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SPECS TABLE -->
+<section class="section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-label">Specifications</div>
+      <h2>Technical Parameters</h2>
+      <p>Standard configurations — custom dimensions, finishes, and capacities available on request.</p>
+    </div>
+    <div class="specs-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Home Lift</th>
+            <th>Platform Series</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Rated Load</td><td>400 / 450 / 630 kg</td><td>300 – 400 kg</td></tr>
+          <tr><td>Rated Speed</td><td>0.4 – 1.0 m/s</td><td>0.3 m/s</td></tr>
+          <tr><td>Drive System</td><td>Traction Motor, VVVF</td><td>Traction Motor, VVVF</td></tr>
+          <tr><td>Shaft Material</td><td>Brick &amp; Concrete / Aluminium / Steel</td><td>Aluminium Alloy &amp; Glass</td></tr>
+          <tr><td>Machine Room</td><td>Machine-room-less or Machine-room</td><td>Machine-room-less</td></tr>
+          <tr><td>Max Stops</td><td>8 stops</td><td>6 stops</td></tr>
+          <tr><td>Max Travel Height</td><td>30 m</td><td>25 m</td></tr>
+          <tr><td>Door Type</td><td>Auto CO / SO / Swing</td><td>Manual / Auto Swing</td></tr>
+          <tr><td>Noise Level</td><td>&lt; 45 dB</td><td>&lt; 45 dB</td></tr>
+          <tr><td>Power Supply</td><td>380V &amp; 220V</td><td>380V &amp; 220V</td></tr>
+          <tr><td>Certification</td><td>CE / ISO 9001</td><td>CE / ISO 9001</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-label">After Sales</div>
+      <h2>We Support You</h2>
+      <p>From factory to front door — XINFUJI provides end-to-end support to ensure a smooth installation and long service life.</p>
+    </div>
+    <div class="service-grid">
+      <div class="svc-card">
+        <div class="svc-icon">📦</div>
+        <h4>Factory-Direct Shipping</h4>
+        <p>Fully packaged and shipped directly from our Zhejiang factory to your project site worldwide.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔧</div>
+        <h4>Installation Guidance</h4>
+        <p>Detailed manuals, video guides, and remote technical support for your local installer.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🛡️</div>
+        <h4>2-Year Warranty</h4>
+        <p>Comprehensive warranty on all drive and control components, with spare parts readily available.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🌐</div>
+        <h4>Global Support</h4>
+        <p>Dedicated after-sales team available via WhatsApp, email, and video call in multiple languages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SMART FEATURES -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-label">Coming Soon</div>
+      <h2>The Future of Home Mobility</h2>
+      <p>We are developing the next generation of smart home elevator experiences — where your lift knows you, responds to you, and breathes with you.</p>
+    </div>
+    <div class="smart-grid">
+      <div class="smart-card" style="opacity:0.75">
+        <div class="smart-icon">👤</div>
+        <h4>Facial Recognition</h4>
+        <p>Keyless entry — the lift recognises family members and opens automatically on arrival.</p>
+      </div>
+      <div class="smart-card" style="opacity:0.75">
+        <div class="smart-icon">🗣️</div>
+        <h4>Voice Commands</h4>
+        <p>Call the lift, select floors, and open doors entirely hands-free with voice control.</p>
+      </div>
+      <div class="smart-card" style="opacity:0.75">
+        <div class="smart-icon">🔍</div>
+        <h4>Fingerprint Access</h4>
+        <p>Biometric access management — private floor-by-floor security for every household member.</p>
+      </div>
+      <div class="smart-card" style="opacity:0.75">
+        <div class="smart-icon">🌿</div>
+        <h4>Air Purification</h4>
+        <p>Built-in HEPA filtration and ionisation — every ride in clean, fresh air.</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:2rem;font-size:0.8rem;color:var(--muted);letter-spacing:0.05em">— Stay tuned. These features are on the roadmap and will be announced soon. —</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready to Elevate Your Home?</h2>
+    <p>Tell us your floor plan, number of stops, and preferred series — we'll send a tailored quote within 24 hours.</p>
+    <div class="cta-actions">
+      <a href="https://xinfuji.com/contact/" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Send Enquiry
+      </a>
+      <a href="https://wa.me/8618018599919?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20a%20XINFUJI%20Home%20Elevator" target="_blank" class="btn-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.849L.054 23.25a.75.75 0 00.916.99l5.549-1.479A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.741 9.741 0 01-4.964-1.356l-.356-.213-3.694.984.993-3.606-.234-.372A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 XINFUJI Elevator &amp; Escalator Co., Ltd. · <a href="https://xinfuji.com/privacy-policy/">Privacy Policy</a> · <a href="https://xinfuji.com/contact/">Contact</a></p>
+</footer>
+
+<!-- WA FLOAT - HT Click to Chat style -->
+<div id="ht-ctc-chat" onclick="window.open('https://wa.me/8618018599919?text=Hi%20XINFUJI%2C%20I%20would%20like%20to%20know%20more%20about%20your%20home%20elevator...','_blank')">
+  <div class="ctc_s3_1">
+    <p class="ctc_cta_stick">WhatsApp us</p>
+    <div class="ht_ctc_padding">
+      <svg style="display:block;height:36px;width:36px;" viewBox="0 0 1219.547 1225.016">
+        <path fill="#E0E0E0" d="M1041.858 178.02C927.206 63.289 774.753.07 612.325 0 277.617 0 5.232 272.298 5.098 606.991c-.039 106.986 27.915 211.42 81.048 303.476L0 1225.016l321.898-84.406c88.689 48.368 188.547 73.855 290.166 73.896h.258c334.654 0 607.08-272.346 607.222-607.023.056-162.208-63.052-314.724-177.686-429.463z"/>
+        <linearGradient id="htwa-home" gradientUnits="userSpaceOnUse" x1="609.77" y1="1190.114" x2="609.77" y2="21.084"><stop offset="0" stop-color="#25D366"/><stop offset="1" stop-color="#25D366"/></linearGradient>
+        <path fill="url(#htwa-home)" d="M27.875 1190.114l82.211-300.18c-50.719-87.852-77.391-187.523-77.359-289.602.133-319.398 260.078-579.25 579.469-579.25 155.016.07 300.508 60.398 409.898 169.891 109.414 109.492 169.633 255.031 169.57 409.812-.133 319.406-260.094 579.281-579.445 579.281h-.258c-96.977-.031-192.266-24.375-276.898-70.5l-307.188 80.548z"/>
+        <path fill="#FFF" fill-rule="evenodd" d="M462.273 349.294c-11.234-24.977-23.062-25.477-33.75-25.914-8.742-.375-18.75-.352-28.742-.352-10 0-26.25 3.758-39.992 18.766-13.75 15.008-52.5 51.289-52.5 125.078 0 73.797 53.75 145.102 61.242 155.117 7.5 10 103.758 166.266 256.203 226.383 126.695 49.961 152.477 40.023 179.977 37.523s88.734-36.273 101.234-71.297c12.5-35.016 12.5-65.031 8.75-71.305-3.75-6.25-13.75-10-28.75-17.5s-88.734-43.789-102.484-48.789-23.75-7.5-33.75 7.516c-10 15-38.727 48.773-47.477 58.773-8.75 10.023-17.5 11.273-32.5 3.773-15-7.523-63.305-23.344-120.609-74.438-44.586-39.75-74.688-88.844-83.438-103.859-8.75-15-.938-23.125 6.586-30.602 6.734-6.719 15-17.508 22.5-26.266 7.484-8.758 9.984-15.008 14.984-25.008 5-10.016 2.5-18.773-1.25-26.273s-32.898-81.67-46.234-111.326z"/>
+      </svg>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var nums=["8618018599919","8617816538257","8618361551938","8619014509482","8615706137940","8613912703131","8618018599919","8617816538257","8618361551938"];
+  var key='ht_ctc_idx';
+  var msg=encodeURIComponent("Hi XINFUJI, I would like to know more about your home elevator...");
+  setTimeout(function(){document.getElementById('ht-ctc-chat').style.display='block'},150);
+  document.getElementById('ht-ctc-chat').onclick=function(){
+    var idx=parseInt(sessionStorage.getItem(key)||0);
+    var num=nums[idx%nums.length];
+    sessionStorage.setItem(key,(idx+1)%nums.length);
+    window.open('https://wa.me/'+num+'?text='+msg,'_blank');
+  };
+})();
+</script>
+
+</body>
+</html>
