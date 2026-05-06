@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabin Decoration – XINFUJI Elevator & Escalator</title>
+<meta name="description" content="Explore XINFUJI's full range of elevator cabin decoration – cabin designs, control panels, ceilings, landing doors, handrails and flooring. 164 options available.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#0d1117;
+  --dark2:#161b22;
+  --gold:#c9a84c;
+  --gold2:#e6c87a;
+  --blue:#1565C0;
+  --blue2:#1976D2;
+  --text:#1a1a2a;
+  --muted:#5c6370;
+  --border:#e0e4ea;
+  --white:#fff;
+  --bg:#f7f8fa;
+  --bg2:#f0f2f5;
+  --wa:#25D366;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:#111318;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo img{height:44px;display:block}
+.nav-menu{list-style:none;display:flex;align-items:center;gap:0}
+.nav-menu>li{position:relative}
+.nav-menu>li>a{display:block;text-decoration:none;color:rgba(255,255,255,0.78);font-size:0.78rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:0.55rem 0.85rem;transition:color 0.2s}
+.nav-menu>li>a:hover,.nav-menu>li.active>a{color:#fff}
+.nav-menu>li.has-drop>a::after{content:'▾';font-size:0.6rem;margin-left:0.3rem;opacity:0.6}
+.nav-drop{display:none;position:absolute;top:100%;left:0;background:#1a1d24;border:1px solid rgba(255,255,255,0.08);border-top:2px solid var(--blue);min-width:200px;padding:0.5rem 0;border-radius:0 0 4px 4px;box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.nav-drop li a{display:block;padding:0.6rem 1.1rem;font-size:0.77rem;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s,background 0.2s;white-space:nowrap}
+.nav-drop li a:hover{color:#fff;background:rgba(255,255,255,0.05)}
+.nav-menu>li:hover .nav-drop{display:block}
+.btn-quote{background:var(--blue);color:#fff!important;padding:0.5rem 1.3rem;border-radius:3px;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;transition:background 0.2s;margin-left:0.5rem}
+.btn-quote:hover{background:var(--blue2)}
+
+/* BREADCRUMB */
+.breadcrumb{background:#fff;border-bottom:1px solid var(--border);padding:0.7rem 5%;display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb-sep{opacity:0.4}
+
+/* HERO */
+@keyframes heroShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes silkSheen{
+  0%{transform:translateX(-120%) skewX(-20deg);opacity:0}
+  20%{opacity:1}
+  80%{opacity:1}
+  100%{transform:translateX(220%) skewX(-20deg);opacity:0}
+}
+.hero{background:linear-gradient(-45deg,#c2cad8,#0d2a5a,#1565c0,#2e0b5e,#0a1a3a,#9aa4b8);background-size:400% 400%;animation:heroShift 32s ease-in-out infinite;padding:3rem 5% 2.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,0.06) 0%,transparent 65%)}
+.hero::after{content:'';position:absolute;top:0;left:0;width:35%;height:100%;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.06) 50%,transparent 70%);animation:silkSheen 8s ease-in-out infinite;pointer-events:none}
+.hero-inner{max-width:1440px;margin:0 auto;position:relative;z-index:1}
+.hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:300;color:#fff;line-height:1.15;letter-spacing:-0.01em;margin-bottom:1rem;min-height:1.2em}
+.hero-desc{font-size:0.88rem;color:rgba(255,255,255,0.42);max-width:900px;line-height:1.9;min-height:1.7em;white-space:nowrap}
+.typewriter::after{content:'|';animation:blink 0.75s step-end infinite;color:rgba(255,255,255,0.5);font-weight:300}
+.typewriter.done::after{display:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-stats{display:flex;gap:3rem;margin-top:2.5rem;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column}
+.stat-num{font-size:2.2rem;font-weight:700;color:var(--gold2);line-height:1}
+.stat-label{font-size:0.68rem;color:rgba(255,255,255,0.32);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.3rem}
+
+/* TAB BAR */
+.tab-wrap{background:#f0f2f5;border-bottom:1px solid #dde1e8;position:sticky;top:72px;z-index:100;box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.tab-inner{max-width:1440px;margin:0 auto;padding:0.6rem 4%;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;gap:0.4rem}
+.tab-inner::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:0.55rem 1.2rem;font-size:0.75rem;font-weight:600;color:#5c6370;border:1px solid #d4d8e0;background:#fff;border-radius:30px;cursor:pointer;position:relative;white-space:nowrap;transition:all 0.25s;font-family:inherit;letter-spacing:0.05em;text-transform:uppercase;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.tab-btn::after{display:none}
+.tab-btn:hover{color:#1a1a2a;border-color:#b0b6c2;background:#fff}
+.tab-btn.active{color:#fff;background:linear-gradient(135deg,#1565C0,#1976D2);border-color:transparent;box-shadow:0 3px 12px rgba(21,101,192,0.35)}
+.tab-count{font-size:0.6rem;background:rgba(0,0,0,0.08);color:inherit;padding:0.1rem 0.42rem;border-radius:10px;margin-left:0.35rem;vertical-align:middle;font-weight:700;letter-spacing:0.02em}
+.tab-btn.active .tab-count{background:rgba(255,255,255,0.25);color:#fff}
+
+/* SUB-FILTER */
+.subfilter-wrap{max-width:1440px;margin:0 auto;padding:1rem 4% 0;min-height:48px}
+.subfilter{display:none;gap:0.5rem;flex-wrap:wrap}
+.subfilter.show{display:flex}
+.sub-btn{font-size:0.72rem;font-weight:500;padding:0.3rem 0.9rem;border:1.5px solid var(--border);border-radius:20px;background:#fff;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:inherit}
+.sub-btn.active{border-color:var(--gold);color:#7a5c1e;background:rgba(201,168,76,0.1)}
+
+/* MAIN */
+main{max-width:1440px;margin:0 auto;padding:1.25rem 4% 5rem}
+
+/* GALLERY GRID */
+.gallery{display:grid;gap:1rem;margin-top:0.25rem}
+.gallery-item{position:relative;overflow:hidden;border-radius:6px;background:#f0f2f5;cursor:pointer;transition:transform 0.22s,box-shadow 0.22s}
+.gallery-item:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.13)}
+.gallery-item img{width:100%;display:block}
+.item-badge{position:absolute;top:0.6rem;left:0.6rem;background:var(--gold);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px;z-index:2}
+.item-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0.85rem;transition:background 0.25s}
+.gallery-item:hover .item-overlay{background:rgba(0,0,0,0.48)}
+.item-label{font-size:0.7rem;font-weight:600;color:#fff;letter-spacing:0.08em;transform:translateY(8px);opacity:0;transition:all 0.22s;text-align:center}
+.item-cta{font-size:0.67rem;font-weight:600;color:#fff;background:var(--gold);padding:0.28rem 0.75rem;border-radius:2px;margin-top:0.35rem;transform:translateY(8px);opacity:0;transition:all 0.22s 0.04s;white-space:nowrap}
+.gallery-item:hover .item-label,.gallery-item:hover .item-cta{opacity:1;transform:translateY(0)}
+
+/* --- Cabin --- */
+.gallery.cat-cabin{grid-template-columns:repeat(4,1fr)}
+.gallery.cat-cabin .gallery-item img{width:85%;height:auto;object-fit:contain;margin:0 auto;display:block}
+
+/* --- COP --- */
+.gallery.cat-cop{grid-template-columns:repeat(6,1fr)}
+.gallery.cat-cop .gallery-item{background:#fff;border:1px solid var(--border)}
+.gallery.cat-cop .gallery-item img{height:340px;object-fit:contain;padding:0.5rem}
+
+/* --- LOP --- */
+.gallery.cat-lop{grid-template-columns:repeat(6,1fr)}
+.gallery.cat-lop .gallery-item{background:#f4f4f4}
+.gallery.cat-lop .gallery-item img{height:300px;object-fit:contain;padding:0.5rem}
+
+/* --- Ceiling --- */
+.gallery.cat-ceiling{grid-template-columns:repeat(4,1fr)}
+.gallery.cat-ceiling .gallery-item{background:#fafafa;border:1px solid var(--border)}
+.gallery.cat-ceiling .gallery-item img{height:210px;object-fit:contain;padding:0.25rem}
+
+/* --- Door --- */
+.gallery.cat-door{grid-template-columns:repeat(5,1fr)}
+.gallery.cat-door .gallery-item{background:#f5f5f5}
+.gallery.cat-door .gallery-item img{height:320px;object-fit:contain;padding:0.25rem}
+
+/* --- Handrail --- */
+.gallery.cat-handrail{grid-template-columns:repeat(3,1fr)}
+.gallery.cat-handrail .gallery-item{background:#f8f8f8;border:1px solid var(--border)}
+.gallery.cat-handrail .gallery-item img{height:160px;object-fit:contain;padding:0.75rem}
+
+/* --- Floor --- */
+.gallery.cat-floor{grid-template-columns:repeat(5,1fr)}
+.gallery.cat-floor .gallery-item{aspect-ratio:1/1;overflow:hidden}
+.gallery.cat-floor .gallery-item img{width:100%;height:100%;object-fit:cover}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:500;display:none;align-items:center;justify-content:center;padding:2rem}
+.lb.open{display:flex}
+.lb-inner{position:relative;max-width:560px;width:100%;text-align:center}
+.lb-img{max-height:72vh;max-width:100%;object-fit:contain;border-radius:4px;display:block;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.lb-model{color:rgba(255,255,255,0.85);font-size:0.88rem;font-weight:600;margin-top:1.1rem;letter-spacing:0.1em}
+.lb-actions{display:flex;gap:0.75rem;justify-content:center;margin-top:0.9rem}
+.lb-wa{display:inline-flex;align-items:center;gap:0.45rem;background:var(--wa);color:#fff;text-decoration:none;padding:0.65rem 1.4rem;border-radius:3px;font-size:0.84rem;font-weight:600;transition:opacity 0.2s}
+.lb-wa:hover{opacity:0.9}
+.lb-close{position:absolute;top:-2.75rem;right:0;background:none;border:none;color:rgba(255,255,255,0.55);font-size:2rem;cursor:pointer;line-height:1;transition:color 0.2s;padding:0}
+.lb-close:hover{color:#fff}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;width:44px;height:44px;cursor:pointer;border-radius:3px;font-size:1.3rem;transition:background 0.2s;display:flex;align-items:center;justify-content:center}
+.lb-nav:hover{background:rgba(255,255,255,0.22)}
+.lb-prev{left:-3.75rem}
+.lb-next{right:-3.75rem}
+.lb-counter{color:rgba(255,255,255,0.35);font-size:0.72rem;margin-top:0.5rem;letter-spacing:0.1em}
+
+/* FOOTER */
+footer{background:var(--dark2);color:rgba(255,255,255,0.45);text-align:center;padding:2rem 5%;font-size:0.78rem;border-top:1px solid rgba(255,255,255,0.07)}
+footer a{color:rgba(255,255,255,0.5);text-decoration:none}
+footer a:hover{color:#fff}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:1.75rem;right:1.75rem;z-index:300;width:52px;height:52px;background:var(--wa);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,0.4);transition:transform 0.2s;text-decoration:none}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float svg{fill:#fff;width:26px;height:26px}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .gallery.cat-cabin{grid-template-columns:repeat(3,1fr)}
+  .gallery.cat-cop,.gallery.cat-lop{grid-template-columns:repeat(4,1fr)}
+  .gallery.cat-door{grid-template-columns:repeat(4,1fr)}
+  .gallery.cat-floor{grid-template-columns:repeat(4,1fr)}
+  .gallery.cat-handrail{grid-template-columns:repeat(2,1fr)}
+  .hero-stats{gap:2rem}
+}
+@media(max-width:768px){
+  .nav-menu{display:none}
+  .hero{padding:3rem 5% 2.5rem}
+  .gallery.cat-cabin{grid-template-columns:repeat(2,1fr)}
+  .gallery.cat-cop,.gallery.cat-lop{grid-template-columns:repeat(3,1fr)}
+  .gallery.cat-ceiling,.gallery.cat-door{grid-template-columns:repeat(2,1fr)}
+  .gallery.cat-floor{grid-template-columns:repeat(3,1fr)}
+  .gallery.cat-handrail{grid-template-columns:repeat(1,1fr)}
+  .lb-prev{left:-2rem}
+  .lb-next{right:-2rem}
+  .hero-stats{gap:1.5rem}
+  .stat-num{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://xinfuji.com" class="nav-logo">
+    <img src="https://xinfuji.com/wp-content/uploads/white-logo-120x72.png" alt="XINFUJI">
+  </a>
+  <ul class="nav-menu">
+    <li><a href="https://xinfuji.com/">Home</a></li>
+    <li class="has-drop">
+      <a href="https://xinfuji.com/product/">Product</a>
+      <ul class="nav-drop">
+        <li><a href="https://xinfuji.com/product/passenger-elevator/">Passenger Elevator</a></li>
+        <li><a href="https://xinfuji.com/product/home-elevator/">Home Elevator</a></li>
+        <li><a href="https://xinfuji.com/product/freight-elevator/">Freight &amp; Cargo</a></li>
+        <li><a href="https://xinfuji.com/product/escalator-and-moving-walker/">Escalators</a></li>
+        <li><a href="https://xinfuji.com/decoration/">Decoration</a></li>
+      </ul>
+    </li>
+    <li><a href="https://xinfuji.com/blog/">Blog</a></li>
+    <li><a href="https://xinfuji.com/downloads/">Downloads</a></li>
+    <li><a href="https://xinfuji.com/projects/">Projects</a></li>
+    <li><a href="https://xinfuji.com/modernization-solution/">Modernization</a></li>
+    <li class="has-drop">
+      <a href="https://xinfuji.com/contact/">Contact</a>
+      <ul class="nav-drop">
+        <li><a href="https://xinfuji.com/partner-with-us/">Partner with Us</a></li>
+      </ul>
+    </li>
+  </ul>
+  <a href="https://xinfuji.com/contact/" class="btn-quote">Quote Now</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="https://xinfuji.com">Home</a>
+  <span class="breadcrumb-sep">/</span>
+  <a href="https://xinfuji.com/decoration/">Decoration</a>
+  <span class="breadcrumb-sep">/</span>
+  <span>Cabin Decoration Catalog</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1><strong>Decoration</strong></h1>
+    <p class="hero-desc"><span class="typewriter" id="twDesc"></span></p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">93</div><div class="stat-label">Cabin Designs</div></div>
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Total Options</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-wrap">
+  <div class="tab-inner">
+    <button class="tab-btn active" data-cat="cabin" onclick="switchTab('cabin')">
+      Cabin Design <span class="tab-count">93</span>
+    </button>
+    <button class="tab-btn" data-cat="cop" onclick="switchTab('cop')">
+      Control Panel (COP) <span class="tab-count">9</span>
+    </button>
+    <button class="tab-btn" data-cat="lop" onclick="switchTab('lop')">
+      Call Panel (LOP) <span class="tab-count">7</span>
+    </button>
+    <button class="tab-btn" data-cat="ceiling" onclick="switchTab('ceiling')">
+      Ceiling <span class="tab-count">15</span>
+    </button>
+    <button class="tab-btn" data-cat="door" onclick="switchTab('door')">
+      Landing Door <span class="tab-count">16</span>
+    </button>
+    <button class="tab-btn" data-cat="handrail" onclick="switchTab('handrail')">
+      Handrail <span class="tab-count">25</span>
+    </button>
+    <button class="tab-btn" data-cat="floor" onclick="switchTab('floor')">
+      Flooring <span class="tab-count">30</span>
+    </button>
+  </div>
+</div>
+
+<!-- SUB-FILTERS -->
+<div class="subfilter-wrap">
+  <div class="subfilter show" id="subCabin">
+    <button class="sub-btn active" onclick="filterCabin(this,'all')">All &nbsp;93</button>
+    <button class="sub-btn" onclick="filterCabin(this,'OLV')">FJ-OLV Series &nbsp;48</button>
+    <button class="sub-btn" onclick="filterCabin(this,'K')">FJ-K Series &nbsp;25</button>
+    <button class="sub-btn" onclick="filterCabin(this,'V')">FJ-V Series &nbsp;20</button>
+  </div>
+  <div class="subfilter" id="subFloor">
+    <button class="sub-btn active" onclick="filterFloor(this,'all')">All &nbsp;30</button>
+    <button class="sub-btn" onclick="filterFloor(this,'slate')">Slate Series &nbsp;15</button>
+    <button class="sub-btn" onclick="filterFloor(this,'marble')">Marble Series &nbsp;15</button>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<main>
+  <div class="gallery cat-cabin" id="gallery"></div>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLbBg(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLb()">&#215;</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1,event)">&#8249;</button>
+    <button class="lb-nav lb-next" onclick="lbNav(1,event)">&#8250;</button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <div class="lb-model" id="lbModel"></div>
+    <div class="lb-counter" id="lbCounter"></div>
+    <div class="lb-actions">
+      <a class="lb-wa" id="lbWa" href="#" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enquire on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/8618018599919" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 XINFUJI Elevator &amp; Escalator · All Rights Reserved ·
+    <a href="https://xinfuji.com/contact/">Contact Us</a> ·
+    <a href="https://xinfuji.com/privacy-policy/">Privacy Policy</a>
+  </p>
+</footer>
+
+<script>
+const WA_BASE = 'https://wa.me/8618018599919';
+
+// ── DATA ──────────────────────────────────────────────
+const cabinItems = [
+  ...Array.from({length:48},(_,i)=>({
+    id:`FJ-OLV${String(i+1).padStart(2,'0')}`,
+    img:`./cabin-images/cabin/FJ-OLV${String(i+1).padStart(2,'0')}.png`,
+    series:'OLV'
+  })),
+  ...Array.from({length:25},(_,i)=>({
+    id:`FJ-K${String(i+1).padStart(2,'0')}`,
+    img:`./cabin-images/cabin/FJ-K${String(i+1).padStart(2,'0')}.png`,
+    series:'K'
+  })),
+  ...Array.from({length:20},(_,i)=>({
+    id:`FJ-V${String(i+1).padStart(2,'0')}`,
+    img:`./cabin-images/cabin/FJ-V${String(i+1).padStart(2,'0')}.jpg`,
+    series:'V'
+  }))
+];
+const copItems = [
+  {id:'COP-01',img:'./cabin-images/cop/COP-01.png',badge:'Standard'},
+  {id:'COP-11',img:'./cabin-images/cop/COP-11.png',badge:'Standard'},
+  {id:'COP-12',img:'./cabin-images/cop/COP-12.png',badge:'Villa'},
+  {id:'COP-02',img:'./cabin-images/cop/COP-02.png',badge:'10.1" Touch Screen'},
+  {id:'COP-10',img:'./cabin-images/cop/COP-10.png',badge:'IC Card'},
+  ...[3,4,5,6,7,8,9].map(n=>({id:`COP-${String(n).padStart(2,'0')}`,img:`./cabin-images/cop/COP-${String(n).padStart(2,'0')}.png`,badge:null}))
+];
+const lopItems = Array.from({length:7},(_,i)=>({
+  id:`LOP-${String(i+1).padStart(2,'0')}`,
+  img:`./cabin-images/lop/LOP-${String(i+1).padStart(2,'0')}.png`
+}));
+const ceilingItems = Array.from({length:15},(_,i)=>({
+  id:`CEL-${String(i+1).padStart(2,'0')}`,
+  img:`./cabin-images/ceiling/CEL-${String(i+1).padStart(2,'0')}.png`
+}));
+const doorBadges={1:'HSS Standard',2:'Side Opening',3:'Glass Door',4:'Freight 4CO',5:'Auto Swing',6:'Single Swing'};
+const doorItems = Array.from({length:29},(_,i)=>{
+  const n=i+1;
+  return {id:`DOOR-${String(n).padStart(2,'0')}`,img:`./cabin-images/door/DOOR-${String(n).padStart(2,'0')}.png`,badge:doorBadges[n]||null};
+});
+const handrailItems = [
+  ...[...Array(24)].map((_,i)=>({id:`HR-${String(i+2).padStart(2,'0')}`,img:`./cabin-images/handrail/HR-${String(i+2).padStart(2,'0')}.png`,badge:null})),
+  {id:'HR-01',img:'./cabin-images/handrail/HR-01.png',badge:'Panoramic Option'}
+];
+const floorItems = [
+  ...Array.from({length:15},(_,i)=>({
+    id:`F-S${String(i+1).padStart(2,'0')}`,
+    img:`./cabin-images/floor/F-S${String(i+1).padStart(2,'0')}.png`,
+    type:'slate'
+  })),
+  ...Array.from({length:15},(_,i)=>({
+    id:`F-M${String(i+1).padStart(2,'0')}`,
+    img:`./cabin-images/floor/F-M${String(i+1).padStart(2,'0')}.png`,
+    type:'marble'
+  }))
+];
+const catData = {
+  cabin:cabinItems, cop:copItems, lop:lopItems,
+  ceiling:ceilingItems, door:doorItems,
+  handrail:handrailItems, floor:floorItems
+};
+
+// ── STATE ─────────────────────────────────────────────
+let currentCat = 'cabin';
+let currentItems = [];
+let lbIdx = 0;
+
+// ── RENDER ────────────────────────────────────────────
+function renderGallery(items){
+  currentItems = items;
+  const g = document.getElementById('gallery');
+  g.innerHTML = items.map((item,i)=>`
+    <div class="gallery-item" onclick="openLb(${i})">
+      ${item.badge ? `<div class="item-badge">${item.badge}</div>` : ''}
+      <img src="${item.img}" alt="${item.id}" loading="lazy">
+      <div class="item-overlay">
+        <div class="item-label">${item.id}</div>
+        <div class="item-cta">Enquire Now</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── TABS ──────────────────────────────────────────────
+function switchTab(cat){
+  currentCat = cat;
+  document.querySelectorAll('.tab-btn').forEach(b=>
+    b.classList.toggle('active', b.dataset.cat===cat));
+  document.getElementById('subCabin').classList.toggle('show', cat==='cabin');
+  document.getElementById('subFloor').classList.toggle('show', cat==='floor');
+  document.getElementById('gallery').className = `gallery cat-${cat}`;
+  if(cat==='cabin'){ renderGallery(cabinItems); return; }
+  if(cat==='floor'){ renderGallery(floorItems); return; }
+  renderGallery(catData[cat]);
+}
+
+function filterCabin(btn, series){
+  document.querySelectorAll('#subCabin .sub-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery(series==='all' ? cabinItems : cabinItems.filter(x=>x.series===series));
+}
+
+function filterFloor(btn, type){
+  document.querySelectorAll('#subFloor .sub-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery(type==='all' ? floorItems : floorItems.filter(x=>x.type===type));
+}
+
+// ── LIGHTBOX ──────────────────────────────────────────
+function openLb(i){
+  lbIdx = i;
+  updateLb();
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function updateLb(){
+  const item = currentItems[lbIdx];
+  document.getElementById('lbImg').src = item.img;
+  document.getElementById('lbImg').alt = item.id;
+  document.getElementById('lbModel').textContent = item.id;
+  document.getElementById('lbCounter').textContent = `${lbIdx+1} / ${currentItems.length}`;
+  const msg = encodeURIComponent(`Hi, I'm interested in the ${item.id} option. Please send more details and pricing.`);
+  document.getElementById('lbWa').href = `${WA_BASE}?text=${msg}`;
+}
+function lbNav(dir, e){
+  e && e.stopPropagation();
+  lbIdx = (lbIdx + dir + currentItems.length) % currentItems.length;
+  updateLb();
+}
+function closeLb(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLbBg(e){ if(e.target.id==='lb') closeLb(); }
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lb').classList.contains('open')) return;
+  if(e.key==='Escape') closeLb();
+  if(e.key==='ArrowLeft') lbNav(-1,null);
+  if(e.key==='ArrowRight') lbNav(1,null);
+});
+
+// ── INIT ──────────────────────────────────────────────
+switchTab('cabin');
+
+function typewrite(el, text, speed, onDone){
+  let i=0;
+  function tick(){
+    el.textContent=text.slice(0,i++);
+    if(i<=text.length) setTimeout(tick, speed);
+    else { el.classList.add('done'); if(onDone) onDone(); }
+  }
+  tick();
+}
+const twDesc = document.getElementById('twDesc');
+typewrite(twDesc, 'Full customization catalog — cabin, control panels, ceilings, doors, handrails & flooring.', 28);
+</script>
+</body>
+</html>
