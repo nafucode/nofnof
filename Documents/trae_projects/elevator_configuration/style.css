@@ -1,0 +1,184 @@
+:root {
+    --primary-color: #005a9e; /* A deep blue from the logo */
+    --secondary-color: #f4f7f9; /* A light grey for backgrounds */
+    --text-color: #333;
+    --border-color: #e0e0e0;
+    --white: #fff;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+header {
+    background-color: var(--white);
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#logo {
+    height: 40px;
+    margin-right: 1em;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    gap: 2em;
+    padding: 2em;
+    align-items: start;
+}
+
+.configurator-panel {
+    background: var(--white);
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+#elevator-form {
+    display: grid;
+    /* Using a more robust grid definition for alignment */
+    grid-template-columns: max-content 1fr;
+    gap: 1.2em 1em; /* row-gap column-gap */
+    align-items: center;
+}
+
+label {
+    font-weight: 600;
+    text-align: right;
+}
+
+input, select, button {
+    padding: 0.8em;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    grid-column: 2;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #00487d; /* A darker shade of the primary color */
+}
+
+.results-panel {
+    position: sticky;
+    top: 2em;
+}
+
+#results {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    visibility: hidden; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#results.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+#scheme-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+#scheme-title {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin: 0;
+    padding: 1em 1em 0.5em 1em;
+}
+
+#scheme-description {
+    padding: 0 1.2em 1em 1.2em;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border-color);
+    margin: 0;
+}
+
+#calculation-results {
+    padding: 1.2em;
+}
+
+#calculation-results h3 {
+    font-size: 1.2em;
+    margin: 0 0 1em 0;
+}
+
+#calculation-results p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em 0;
+    font-size: 1em;
+}
+
+#calculation-results span {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+#glass-cost-section {
+    display: none;
+    margin: 0 1.2em 1.2em 1.2em;
+    padding: 1em 1.2em;
+    background: #fff8ed;
+    border: 1px solid #f0c060;
+    border-radius: 6px;
+}
+
+#glass-cost-section h3 {
+    font-size: 1.1em;
+    margin: 0 0 0.8em 0;
+    color: #8a5a00;
+}
+
+#glass-cost-section p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.4em 0;
+    font-size: 0.95em;
+}
+
+#glass-cost-section span {
+    font-weight: bold;
+    color: #a06000;
+}
+
+#glass-cost-section .total-line {
+    margin-top: 0.8em;
+    padding-top: 0.8em;
+    border-top: 1px solid #f0c060;
+    font-size: 1.05em;
+}
+
+#glass-cost-section .total-line span {
+    color: #c05000;
+    font-size: 1.1em;
+}

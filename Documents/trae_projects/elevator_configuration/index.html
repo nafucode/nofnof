@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator Configurator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="https://xinfuji.com/wp-content/uploads/2024/04/logo-1.png" alt="Xinfuji Elevator Logo" id="logo">
+        <h1>Elevator Configurator</h1>
+    </header>
+
+    <main>
+        <div class="configurator-panel">
+            <form id="elevator-form">
+        <!-- Input fields will be added here -->
+        <label for="usage">Usage Scene:</label>
+        <select id="usage" name="usage">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="hospital">Hospital</option>
+            <option value="observation">Observation</option>
+        </select>
+
+        <label for="floors">Number of Floors:</label>
+        <input type="number" id="floors" name="floors" min="2" value="5">
+
+        <label for="speed">Speed (m/s):</label>
+        <select id="speed" name="speed">
+            <option value="0.4" class="low-load-speed">0.4 m/s</option>
+            <option value="0.63" class="low-load-speed">0.63 m/s</option>
+            <option value="1.0">1.0 m/s</option>
+            <option value="1.5">1.5 m/s</option>
+            <option value="1.75">1.75 m/s</option>
+            <option value="2.0">2.0 m/s</option>
+            <option value="2.5">2.5 m/s</option>
+        </select>
+
+        <label for="shaft-width">Shaft Width (mm):</label>
+        <input type="number" id="shaft-width" name="shaft-width" value="2000">
+
+        <label for="shaft-depth">Shaft Depth (mm):</label>
+        <input type="number" id="shaft-depth" name="shaft-depth" value="2200">
+
+        <label for="shaft-height">Shaft Total Height (m):</label>
+        <input type="number" id="shaft-height" name="shaft-height" value="15" step="0.1" min="3">
+
+        <label for="frame-required">Aluminum Shaft Frame:</label>
+        <select id="frame-required" name="frame-required">
+            <option value="no">Not Required</option>
+            <option value="yes">Required</option>
+        </select>
+
+        <label for="load">Load (KG):</label>
+        <input type="number" id="load" name="load" value="630">
+
+        <label for="machine-room-type">Machine Room Type:</label>
+        <select id="machine-room-type" name="machine-room-type">
+            <option value="mr">Machine Room</option>
+            <option value="mrl">Machine Room Less</option>
+        </select>
+
+        <label for="door-type">Door Type:</label>
+        <select id="door-type" name="door-type">
+            <option value="center">Center Opening</option>
+            <option value="side">Side Opening</option>
+            <option value="4co">4-Panel Center Opening</option>
+        </select>
+
+        <label for="counterweight-pos">Counterweight Position:</label>
+        <select id="counterweight-pos" name="counterweight-pos">
+            <option value="side">Side</option>
+            <option value="rear">Rear</option>
+        </select>
+
+        <button type="submit">Generate Scheme</button>
+            </form>
+        </div>
+
+        <div class="results-panel">
+            <div id="results">
+                <img id="scheme-image" src="" alt="Elevator Scheme">
+                <h2 id="scheme-title"></h2>
+                <p id="scheme-description"></p>
+                <div id="calculation-results">
+                    <h3>Calculated Dimensions:</h3>
+                    <p><strong>Door Opening Width:</strong> <span id="door-width-result"></span> mm</p>
+                    <p><strong>Car Dimensions (Width x Depth):</strong> <span id="car-size-result"></span> mm</p>
+                </div>
+                <div id="glass-cost-section">
+                    <h3>Glass &amp; Aluminum Frame Estimate</h3>
+                    <p><strong>Glass Area:</strong> <span id="glass-area-result"></span></p>
+                    <p><strong>Glass Cost (¥250/m²):</strong> <span id="glass-cost-result"></span></p>
+                    <p><strong>Aluminum Frame Cost:</strong> <span id="frame-cost-result"></span></p>
+                    <p class="total-line"><strong>Total Estimate:</strong> <span id="total-glass-result"></span></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
