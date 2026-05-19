@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NofNof – Approvisionnement de Chine pour l'Afrique de l'Ouest</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;
+  --bg2:#f5f5f7;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --muted2:#a1a1a6;
+  --accent:#0071e3;
+  --accent-light:#e8f1fd;
+  --border:rgba(0,0,0,0.08);
+  --border2:rgba(0,0,0,0.14);
+  --wa:#25D366;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(0,47,167,0.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.12)}
+.logo{font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:0.04em}
+.logo span{color:rgba(255,255,255,0.7)}
+nav ul{list-style:none;display:flex;gap:2rem}
+nav ul a{text-decoration:none;color:rgba(255,255,255,0.75);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;transition:color 0.2s}
+nav ul a:hover{color:#fff}
+.btn-nav{background:rgba(255,255,255,0.18);color:#fff !important;padding:0.4rem 1.1rem;border-radius:6px;font-weight:500 !important;border:1px solid rgba(255,255,255,0.3)}
+.btn-nav:hover{background:rgba(255,255,255,0.28)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden;background:var(--bg)}
+.hero-accent-bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,var(--accent),transparent)}
+.hero-left{padding:0 5% 0 5%;position:relative;z-index:1}
+.hero-right{height:100vh;overflow:hidden}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center}
+.eyebrow{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem;font-weight:500}
+.eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--accent)}
+h1{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:700;line-height:1.1;color:var(--text);margin-bottom:1.25rem;letter-spacing:-0.02em}
+h1 .gold{color:var(--accent)}
+.hero-desc{font-size:0.95rem;color:var(--muted);max-width:440px;margin-bottom:2.5rem;line-height:1.9}
+.hero-actions{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.btn-wa{display:inline-flex;align-items:center;gap:0.6rem;background:var(--wa);color:#fff;text-decoration:none;padding:0.85rem 1.8rem;border-radius:8px;font-size:0.88rem;font-weight:500;letter-spacing:0.02em;transition:opacity 0.2s,transform 0.15s}
+.btn-wa:hover{opacity:0.9;transform:translateY(-1px)}
+.btn-wa svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+.btn-outline{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;border:1px solid var(--border2);color:var(--muted);text-decoration:none;padding:0.85rem 1.8rem;border-radius:8px;font-size:0.85rem;font-weight:500;transition:background 0.2s,color 0.2s}
+.btn-outline:hover{background:var(--bg2);color:var(--text)}
+.trust-row{display:flex;align-items:center;gap:1.75rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+.trust-item{text-align:center}
+.trust-num{font-size:1.7rem;font-weight:700;color:var(--accent);line-height:1;letter-spacing:-0.02em}
+.trust-label{font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-top:0.2rem}
+.trust-divider{width:1px;height:36px;background:var(--border)}
+
+/* SECTIONS */
+.section{padding:7rem 5%}
+.section-alt{background:var(--bg2)}
+.label{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.6rem;font-weight:500}
+.label::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--text);margin-bottom:0.75rem;line-height:1.15;letter-spacing:-0.02em}
+.section-sub{font-size:0.9rem;color:var(--muted);max-width:520px;margin-bottom:3.5rem;line-height:1.85}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.pcard{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s}
+.pcard:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+.pcard-img{height:200px;overflow:hidden;background:var(--bg2)}
+.pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
+.pcard:hover .pcard-img img{transform:scale(1.04)}
+.pcard-body{padding:1.75rem 1.75rem}
+.pcard-icon{font-size:1.6rem;margin-bottom:0.9rem;display:block}
+.pcard h3{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:0.65rem}
+.pcard-desc{font-size:0.82rem;color:var(--muted);line-height:1.9;margin-bottom:1.25rem}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);padding:0.25rem 0.6rem;border-radius:4px;background:var(--bg2)}
+.tag-accent{border-color:rgba(0,113,227,0.25);color:var(--accent);background:var(--accent-light)}
+
+/* PORT BANNER */
+.port-banner{position:relative;height:380px;overflow:hidden}
+.port-banner img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.port-overlay{position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);display:flex;align-items:center;padding:0 5%}
+.port-text{max-width:520px;color:#fff}
+.port-text .label{color:rgba(255,255,255,0.7)}
+.port-text .label::before{background:rgba(255,255,255,0.5)}
+.port-text h2{color:#fff;margin-bottom:0.75rem}
+.port-text p{font-size:0.92rem;color:rgba(255,255,255,0.8);line-height:1.8}
+
+/* PROCESS */
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.process-steps::before{content:'';position:absolute;top:2rem;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent),transparent);opacity:0.25}
+.pstep{padding:2rem 1.5rem;text-align:center}
+.pstep-circle{width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,113,227,0.35);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:0.9rem;font-weight:600;color:var(--accent);background:#fff}
+.pstep h4{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+.pstep p{font-size:0.78rem;color:var(--muted);line-height:1.8}
+
+/* WHY */
+.why-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.why-list{display:flex;flex-direction:column;gap:1.75rem}
+.why-item{display:flex;gap:1rem}
+.why-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:0.55rem}
+.why-item h4{font-size:0.92rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+.why-item p{font-size:0.8rem;color:var(--muted);line-height:1.85}
+.cta-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:3rem 2.5rem;box-shadow:0 4px 16px rgba(0,0,0,0.05)}
+.cta-card h3{font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;line-height:1.3;letter-spacing:-0.01em}
+.cta-card p{font-size:0.85rem;color:var(--muted);margin-bottom:2rem;line-height:1.8}
+.wa-number{display:flex;align-items:center;gap:0.75rem;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);border-radius:8px;padding:0.85rem 1.25rem;margin-bottom:1.25rem}
+.wa-number span{font-size:0.95rem;font-weight:500;color:var(--text)}
+.wa-number small{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em}
+.wa-badge{width:28px;height:28px;background:var(--wa);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wa-badge svg{width:14px;height:14px;fill:#fff}
+.response-note{font-size:0.75rem;color:var(--muted2);text-align:center;margin-top:1rem}
+
+/* MARKETS */
+.markets-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3rem}
+.market-item{display:flex;align-items:center;gap:0.75rem;background:#fff;border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;transition:box-shadow 0.2s}
+.market-item:hover{box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.market-flag{font-size:1.5rem}
+.market-info h4{font-size:0.88rem;font-weight:600;color:var(--text)}
+.market-info p{font-size:0.75rem;color:var(--muted)}
+
+/* GALLERY STRIP */
+.gallery-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;height:280px;overflow:hidden}
+.gallery-strip-item{overflow:hidden}
+.gallery-strip-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.gallery-strip-item:hover img{transform:scale(1.05)}
+
+/* INQUIRY FORM */
+.inquiry-section{background:var(--bg2)}
+.inquiry-inner{max-width:720px;margin:0 auto}
+.form-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:3rem;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:0.78rem;font-weight:600;color:var(--text);letter-spacing:0.02em}
+.form-group input,.form-group select,.form-group textarea{padding:0.75rem 1rem;border:1px solid var(--border2);border-radius:8px;font-size:0.88rem;font-family:'Inter',sans-serif;color:var(--text);background:#fff;transition:border-color 0.2s,box-shadow 0.2s;outline:none;width:100%}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,113,227,0.12)}
+.form-group textarea{resize:vertical;min-height:120px;line-height:1.6}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e73' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;cursor:pointer}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:0.25rem}
+.checkbox-group label{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;font-weight:400;color:var(--muted);cursor:pointer;padding:0.45rem 0.85rem;border:1px solid var(--border2);border-radius:6px;transition:all 0.18s}
+.checkbox-group input[type=checkbox]{width:14px;height:14px;accent-color:var(--accent);flex-shrink:0}
+.checkbox-group label:has(input:checked){border-color:var(--accent);background:var(--accent-light);color:var(--accent);font-weight:500}
+.btn-submit{width:100%;padding:0.95rem;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:0.95rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s,transform 0.15s;margin-top:0.5rem;letter-spacing:0.01em}
+.btn-submit:hover{background:#005bbf;transform:translateY(-1px)}
+.form-note{font-size:0.75rem;color:var(--muted2);text-align:center;margin-top:1rem}
+.form-success{display:none;text-align:center;padding:2rem;color:var(--accent)}
+.form-success h3{font-size:1.3rem;font-weight:700;margin-bottom:0.5rem}
+
+/* FLOATING WA */
+.wa-float{position:fixed;bottom:2rem;right:2rem;z-index:300;width:56px;height:56px;background:var(--wa);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.4);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,0.5)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem 5%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem}
+.footer-logo{font-size:1.1rem;font-weight:700;color:var(--text)}
+.footer-logo span{color:var(--accent)}
+footer small{font-size:0.72rem;color:var(--muted2);letter-spacing:0.06em;text-align:center}
+.footer-right{text-align:right}
+.footer-right small{display:block}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* Mobile */
+@media(max-width:768px){
+  nav ul{display:none}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:7rem 5% 3rem}
+  .hero-right{height:260px}
+  .products-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .why-layout{grid-template-columns:1fr;gap:3rem}
+  .markets-grid{grid-template-columns:1fr}
+  .trust-row{gap:1rem}
+  .gallery-strip{grid-template-columns:1fr;height:auto}
+  .gallery-strip img{height:200px}
+  footer{grid-template-columns:1fr;text-align:center}
+  .footer-right{text-align:center}
+  .port-banner{height:280px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><img src="icon.png" alt="NofNof" style="height:32px;width:auto;vertical-align:middle;margin-right:0.5rem;filter:brightness(0) invert(1)">NOF<span>NOF</span>.COM</div>
+  <ul>
+    <li><a href="#products">Produits</a></li>
+    <li><a href="#process">Processus</a></li>
+    <li><a href="#markets">Marchés</a></li>
+    <li><a href="#inquiry">Demande</a></li>
+    <li><a href="/index.html" style="color:#fff;opacity:0.8">EN</a></li>
+    <li><a href="https://wa.me/8618018599919" target="_blank" class="btn-nav">WhatsApp</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-accent-bar"></div>
+  <div class="hero-left">
+    <div class="eyebrow">Approvisionnement Chine – Afrique de l'Ouest</div>
+    <h1>Votre Partenaire<br>d'Approvisionnement<br>depuis la <span class="gold">Chine</span></h1>
+    <p class="hero-desc">Nous aidons les entreprises de construction nigérianes, ghanéennes et ouest-africaines à s'approvisionner en ascenseurs, miroirs connectés et revêtements de sol premium directement auprès de fabricants chinois certifiés — de manière fiable, transparente et à des prix compétitifs.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/8618018599919" target="_blank" class="btn-wa">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Obtenir un devis sur WhatsApp
+      </a>
+      <a href="#products" class="btn-outline">Voir nos produits ↓</a>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item"><div class="trust-num">3</div><div class="trust-label">Catégories principales</div></div>
+      <div class="trust-divider"></div>
+      <div class="trust-item"><div class="trust-num">FOB</div><div class="trust-label">&amp; CIF Terms</div></div>
+      <div class="trust-divider"></div>
+      <div class="trust-item"><div class="trust-num">48h</div><div class="trust-label">Délai de devis</div></div>
+      <div class="trust-divider"></div>
+      <div class="trust-item"><div class="trust-num">CE</div><div class="trust-label">Produits certifiés</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80" alt="Modern building" loading="eager">
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section section-alt" id="products">
+  <div class="label reveal">Nos produits</div>
+  <h2 class="reveal">Trois catégories dans lesquelles nous sommes spécialisés</h2>
+  <p class="section-sub reveal">Approvisionnement direct en usine auprès de fabricants chinois vérifiés. Chaque produit est accompagné d'une documentation technique complète et de certificats de conformité.</p>
+  <div class="products-grid reveal">
+    <div class="pcard">
+      <div class="pcard-img">
+        <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=700&q=80" alt="Modern elevator interior" loading="lazy">
+      </div>
+      <div class="pcard-body">
+        <span class="pcard-icon">🛗</span>
+        <h3>Ascenseurs</h3>
+        <p class="pcard-desc">Ascenseurs passagers, de charge, panoramiques et hospitaliers pour hôtels, tours résidentielles, centres commerciaux et bâtiments commerciaux. Conformes aux normes de sécurité internationales.</p>
+        <div class="tags">
+          <span class="tag tag-accent">Ascenseurs passagers</span>
+          <span class="tag">Charge / Marchandises</span>
+          <span class="tag">Panoramique</span>
+          <span class="tag">Hospitalier</span>
+          <span class="tag">Monte-charge privatif</span>
+        </div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img">
+        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=700&q=80" alt="Smart mirror bathroom" loading="lazy">
+      </div>
+      <div class="pcard-body">
+        <span class="pcard-icon">🪞</span>
+        <h3>Miroirs connectés</h3>
+        <p class="pcard-desc">Miroirs de salle de bain LED rétroéclairés, anti-buée et connectés IoT. Idéaux pour les hôtels, appartements avec services et résidences de luxe.</p>
+        <div class="tags">
+          <span class="tag tag-accent">Rétroéclairage LED</span>
+          <span class="tag">Anti-buée</span>
+          <span class="tag">Capteur tactile</span>
+          <span class="tag">Sur mesure</span>
+          <span class="tag">Sans cadre</span>
+        </div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="pcard-img">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80" alt="Premium flooring interior" loading="lazy">
+      </div>
+      <div class="pcard-body">
+        <span class="pcard-icon">🪵</span>
+        <h3>Revêtements de sol</h3>
+        <p class="pcard-desc">Vinyle SPC, parquet contrecollé, stratifié et grands carreaux en porcelaine. Options résistantes à l'humidité, sélectionnées pour le climat tropical et le taux d'humidité de l'Afrique de l'Ouest.</p>
+        <div class="tags">
+          <span class="tag tag-accent">Vinyle SPC</span>
+          <span class="tag">Parquet contrecollé</span>
+          <span class="tag">Stratifié</span>
+          <span class="tag">Carrelage porcelaine</span>
+          <span class="tag">Imperméable</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORT BANNER -->
+<div class="port-banner">
+  <img src="https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1600&q=80" alt="Container shipping port" loading="lazy">
+  <div class="port-overlay">
+    <div class="port-text">
+      <div class="label">Logistique de bout en bout</div>
+      <h2>De l'usine en Chine<br>à votre port en Afrique</h2>
+      <p>FOB Shanghai · CIF Lagos, Tema, Abidjan<br>Documentation complète, contrôle qualité avant expédition et coordination du fret inclus.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+  <div class="label reveal">Comment ça marche</div>
+  <h2 class="reveal">Simple. Rapide. Fiable.</h2>
+  <p class="section-sub reveal">De votre premier message jusqu'à la livraison sur site — voici comment nous travaillons ensemble.</p>
+  <div class="process-steps reveal">
+    <div class="pstep">
+      <div class="pstep-circle">01</div>
+      <h4>Envoyez votre brief</h4>
+      <p>Contactez-nous sur WhatsApp avec le type de produit, la quantité, les spécifications et la date limite du projet. Aucun formulaire requis.</p>
+    </div>
+    <div class="pstep">
+      <div class="pstep-circle">02</div>
+      <h4>Devis en 48h</h4>
+      <p>Nous sourçons auprès d'usines vérifiées et envoyons un devis détaillé avec spécifications produit, tarifs et délais de livraison.</p>
+    </div>
+    <div class="pstep">
+      <div class="pstep-circle">03</div>
+      <h4>Contrôle qualité avant expédition</h4>
+      <p>Inspection en usine avant que les marchandises quittent la Chine. Photos, certificats et documentation complète fournis.</p>
+    </div>
+    <div class="pstep">
+      <div class="pstep-circle">04</div>
+      <h4>Livraison au port</h4>
+      <p>FOB Shanghai / CIF port de destination. Nous coordonnons le transport et les formalités douanières.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip">
+  <div class="gallery-strip-item">
+    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80" alt="Modern building lobby" loading="lazy">
+  </div>
+  <div class="gallery-strip-item">
+    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=700&q=80" alt="Elevator operation" loading="lazy">
+  </div>
+  <div class="gallery-strip-item">
+    <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=700&q=80" alt="Interior flooring" loading="lazy">
+  </div>
+</div>
+
+<!-- WHY + CTA -->
+<section class="section section-alt" id="why">
+  <div class="label reveal">Pourquoi NofNof</div>
+  <h2 class="reveal">Conçu pour les acheteurs d'Afrique de l'Ouest</h2>
+  <div class="why-layout">
+    <div class="why-list reveal">
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Directement en usine, sans intermédiaires</h4>
+          <p>Nous sourçons directement auprès des fabricants, vous offrant le meilleur prix sans les marges des sociétés de négoce.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Produits adaptés à l'Afrique de l'Ouest</h4>
+          <p>Les produits sont sélectionnés selon les normes de tension locales (220V/50Hz), la résistance à l'humidité et la compatibilité avec les ports de Lagos, Tema et Abidjan.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Documentation de conformité complète</h4>
+          <p>Certificats CE, ISO et RoHS inclus. Manuels d'installation en français pour votre équipe sur site.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Communication via WhatsApp en priorité</h4>
+          <p>Mises à jour en temps réel, photos depuis l'usine et suivi d'expédition — tout via WhatsApp. Pas de chaînes d'e-mails, pas de délais.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <h4>Conditions de paiement et d'expédition flexibles</h4>
+          <p>Virement bancaire T/T. FOB ou CIF. Nous travaillons avec votre transitaire ou organisons l'expédition en votre nom.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cta-card reveal">
+      <h3>Prêt à commencer l'approvisionnement ?</h3>
+      <p>Envoyez-nous vos besoins de projet sur WhatsApp. Nous répondons généralement en quelques heures pendant les heures ouvrables (heure standard de Chine, GMT+8).</p>
+      <div class="wa-number">
+        <div class="wa-badge">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div>
+          <span>+86 180 1859 9919</span><br>
+          <small>WhatsApp &amp; WeChat</small>
+        </div>
+      </div>
+      <a href="https://wa.me/8618018599919" target="_blank" class="btn-wa" style="width:100%;justify-content:center">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Discuter sur WhatsApp maintenant
+      </a>
+      <p class="response-note">⏱ Délai de réponse habituel : sous 4 heures · Lun–Sam</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="section" id="markets">
+  <div class="label reveal">Marchés que nous servons</div>
+  <h2 class="reveal">Afrique de l'Ouest &amp; au-delà</h2>
+  <p class="section-sub reveal">Notre priorité est l'Afrique de l'Ouest — le marché de la construction à la croissance la plus rapide du continent. Nous livrons à tous les grands ports.</p>
+  <div class="markets-grid reveal">
+    <div class="market-item">
+      <span class="market-flag">🇳🇬</span>
+      <div class="market-info"><h4>Nigeria</h4><p>Lagos, port d'Apapa · Livraisons à Abuja</p></div>
+    </div>
+    <div class="market-item">
+      <span class="market-flag">🇬🇭</span>
+      <div class="market-info"><h4>Ghana</h4><p>Port de Tema · Projets à Accra &amp; Kumasi</p></div>
+    </div>
+    <div class="market-item">
+      <span class="market-flag">🇨🇮</span>
+      <div class="market-info"><h4>Côte d'Ivoire</h4><p>Port d'Abidjan · Marché francophone</p></div>
+    </div>
+    <div class="market-item">
+      <span class="market-flag">🌍</span>
+      <div class="market-info"><h4>Reste de l'Afrique de l'Ouest</h4><p>Sénégal, Cameroun, Togo &amp; autres</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INQUIRY FORM -->
+<section class="section inquiry-section" id="inquiry">
+  <div class="inquiry-inner">
+    <div class="label reveal" style="justify-content:center">Obtenir un devis</div>
+    <h2 class="reveal" style="text-align:center;margin-bottom:0.5rem">Envoyez-nous vos besoins</h2>
+    <p class="section-sub reveal" style="text-align:center;margin:0 auto 2.5rem">Remplissez le formulaire et nous vous enverrons un devis détaillé dans les 48 heures.</p>
+    <div class="form-card reveal">
+      <form action="https://formspree.io/f/xdaypvnj" method="POST" id="inquiryForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Nom complet *</label>
+            <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+          </div>
+          <div class="form-group">
+            <label for="company">Société / Projet</label>
+            <input type="text" id="company" name="company" placeholder="Nom de la société ou du projet">
+          </div>
+          <div class="form-group">
+            <label for="country">Pays *</label>
+            <select id="country" name="country" required>
+              <option value="" disabled selected>Sélectionnez votre pays</option>
+              <optgroup label="Afrique de l'Ouest">
+                <option>Nigeria</option>
+                <option>Ghana</option>
+                <option>Côte d'Ivoire</option>
+                <option>Sénégal</option>
+                <option>Cameroun</option>
+                <option>Togo</option>
+                <option>Bénin</option>
+                <option>Mali</option>
+                <option>Burkina Faso</option>
+                <option>Guinée</option>
+                <option>Sierra Leone</option>
+                <option>Liberia</option>
+                <option>Niger</option>
+                <option>Gambie</option>
+                <option>Cap-Vert</option>
+              </optgroup>
+              <optgroup label="Autre Afrique">
+                <option>Afrique du Sud</option>
+                <option>Kenya</option>
+                <option>Éthiopie</option>
+                <option>Tanzanie</option>
+                <option>Égypte</option>
+                <option>Maroc</option>
+                <option>Angola</option>
+                <option>RD Congo</option>
+                <option>Autre pays africain</option>
+              </optgroup>
+              <optgroup label="Autre">
+                <option>Chine</option>
+                <option>Émirats arabes unis</option>
+                <option>Royaume-Uni</option>
+                <option>États-Unis</option>
+                <option>Autre</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact">WhatsApp / E-mail *</label>
+            <input type="text" id="contact" name="contact" placeholder="+234... ou email@exemple.com" required>
+          </div>
+          <div class="form-group full">
+            <label>Produits souhaités *</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="product" value="Elevators"> 🛗 Ascenseurs</label>
+              <label><input type="checkbox" name="product" value="Smart Mirrors"> 🪞 Miroirs connectés</label>
+              <label><input type="checkbox" name="product" value="Flooring"> 🪵 Revêtements de sol</label>
+              <label><input type="checkbox" name="product" value="Multiple / Not sure"> Plusieurs / Pas encore décidé</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantité estimée</label>
+            <input type="text" id="quantity" name="quantity" placeholder="ex. 2 ascenseurs, 500 m²">
+          </div>
+          <div class="form-group">
+            <label for="timeline">Calendrier du projet</label>
+            <select id="timeline" name="timeline">
+              <option value="" disabled selected>Quand en avez-vous besoin ?</option>
+              <option>Dans 1 mois</option>
+              <option>1 à 3 mois</option>
+              <option>3 à 6 mois</option>
+              <option>6 à 12 mois</option>
+              <option>Juste en recherche</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="requirements">Description du projet *</label>
+            <textarea id="requirements" name="requirements" placeholder="Décrivez votre projet — type de bâtiment, nombre d'étages, spécifications, budget approximatif ou tout autre détail qui nous aidera à préparer un devis précis." required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Envoyer la demande →</button>
+        <p class="form-note">Nous répondons sous 48h par WhatsApp ou e-mail · Aucun spam.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/8618018599919" target="_blank" class="wa-float" title="Discuter sur WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NOF<span>NOF</span>.COM</div>
+  <small>Approvisionnement Chine · Ascenseurs · Miroirs connectés · Revêtements de sol<br>Au service de l'Afrique de l'Ouest depuis la Chine</small>
+  <div class="footer-right">
+    <small>+86 180 1859 9919</small>
+    <small style="margin-top:0.3rem">nofnof.com</small>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+</script>
+
+</body>
+</html>
