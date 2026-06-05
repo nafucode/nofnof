@@ -11,6 +11,15 @@
   ];
   var modal;
   var activeCategory = '';
+  var requirementTemplates = {
+    'Cars / EV': 'Vehicle type:\nBrand / model / year:\nQuantity:\nBudget:\nDestination country / port:',
+    'Mirrors': 'Mirror size / shape:\nLED / anti-fog function:\nFrame color:\nQuantity:\nDestination country:',
+    'Home lift': 'Home lift floors / stops:\nLoad capacity:\nShaft size or drawing:\nPreferred style:\nInstallation country:',
+    'Passenger lift': 'Passenger lift floors / stops:\nLoad capacity:\nSpeed:\nProject drawing available:\nDestination country:',
+    'Cargo / goods lift': 'Cargo / goods lift capacity:\nFloors / stops:\nPlatform size:\nGoods type:\nDestination country:',
+    'Flooring': 'Flooring material:\nProject area:\nThickness / color:\nIndoor or outdoor:\nDestination country:',
+    'Other / not sure': 'Product name:\nQuantity:\nTarget specification:\nBudget:\nDestination country:'
+  };
 
   function inferCategory(link) {
     var text = ((link && link.textContent) || '').toLowerCase();
@@ -39,6 +48,10 @@
 
   function makeWhatsAppUrl(category, details) {
     return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(buildMessage(category, details));
+  }
+
+  function getTemplate(category) {
+    return requirementTemplates[category] || requirementTemplates['Other / not sure'];
   }
 
   function addStyles() {
@@ -92,7 +105,7 @@
       '  <div class="wa-inquiry-body">',
       '    <div class="wa-inquiry-options" role="group" aria-label="Product type"></div>',
       '    <label class="wa-inquiry-label" for="wa-inquiry-text">Short requirement</label>',
-      '    <textarea class="wa-inquiry-text" id="wa-inquiry-text" placeholder="Example: 2 passenger lifts for a hotel project in Lagos, or 30 LED mirrors with anti-fog function."></textarea>',
+      '    <textarea class="wa-inquiry-text" id="wa-inquiry-text" placeholder="Edit the checklist before opening WhatsApp."></textarea>',
       '    <div class="wa-inquiry-actions">',
       '      <button class="wa-inquiry-secondary" type="button">Cancel</button>',
       '      <button class="wa-inquiry-primary" type="button">Continue to WhatsApp</button>',
@@ -130,17 +143,18 @@
 
   function selectCategory(category) {
     activeCategory = category;
-    ensureModal().querySelectorAll('.wa-inquiry-option').forEach(function (button) {
+    var box = ensureModal();
+    box.querySelectorAll('.wa-inquiry-option').forEach(function (button) {
       var selected = button.textContent === category;
       button.classList.toggle('is-selected', selected);
       button.setAttribute('aria-pressed', selected ? 'true' : 'false');
     });
+    box.querySelector('.wa-inquiry-text').value = getTemplate(category);
   }
 
   function openModal(link) {
     var box = ensureModal();
     selectCategory(inferCategory(link) || 'Other / not sure');
-    box.querySelector('.wa-inquiry-text').value = '';
     box.classList.add('is-open');
     document.body.classList.add('wa-inquiry-lock');
     window.setTimeout(function () {
