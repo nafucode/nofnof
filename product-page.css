@@ -16,7 +16,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 a{color:inherit}
 nav{position:fixed;top:0;left:0;right:0;z-index:50;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(0,47,167,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.12)}
 .logo{display:flex;align-items:center;color:#fff;font-weight:700;letter-spacing:0.04em;text-decoration:none}
-.logo img{height:32px;width:auto;filter:brightness(0) invert(1);margin-right:0.5rem}
+.logo img{height:32px;width:auto;margin-right:0.5rem}
 .logo .brand-text{opacity:1}
 .logo .brand-text span{opacity:0.7}
 nav ul{display:flex;align-items:center;gap:1.55rem;list-style:none}
